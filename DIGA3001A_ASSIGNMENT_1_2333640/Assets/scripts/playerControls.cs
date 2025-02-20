@@ -105,7 +105,7 @@ public class playerControls : MonoBehaviour
 
             // Vertical rotation: Adjust the vertical look rotation and clamp it to prevent flipping
             _verticalLookRotation -= lookY;
-            _verticalLookRotation = Mathf.Clamp(_verticalLookRotation, -20f, 15f);
+            _verticalLookRotation = Mathf.Clamp(_verticalLookRotation, -15f, 20f);
 
             // Apply the clamped vertical rotation to the player camera
             playerCamera.localEulerAngles = new Vector3(_verticalLookRotation, 0, 0);
@@ -125,10 +125,13 @@ public class playerControls : MonoBehaviour
 
     private void Jump()
     {
-        
-       
+
+        if (_characterController.isGrounded)
+        {
             // Calculate the jump velocity
             _velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+            
        
     }
 
