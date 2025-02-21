@@ -146,6 +146,7 @@ public class playerControls : MonoBehaviour
         {
             Debug.Log("should have lit fire");
             fire1.SetActive(true);
+            isInCampfireRange = false;
         }
             
     }
