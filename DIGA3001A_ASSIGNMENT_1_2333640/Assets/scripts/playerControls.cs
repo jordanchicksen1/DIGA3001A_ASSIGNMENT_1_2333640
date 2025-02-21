@@ -177,30 +177,45 @@ public class playerControls : MonoBehaviour
         Debug.Log("should sprint");
     }
 
-    public void OnTriggerStay(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Campfire")
         {
             isInCampfireRange = true;
             linkFlameText.SetActive(true);
         }
-        else
-        {
-            isInCampfireRange= false;
-            linkFlameText.SetActive(false);
-        }
+        
 
         if(other.tag == "Flint")
         {
             isInFlintRange1 = true;
-            pickUpFlintText.SetActive(true);
+           pickUpFlintText.SetActive(true);
         }
-        else
+        
+        
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Campfire")
+        {
+            isInCampfireRange = false;
+            linkFlameText.SetActive(false);
+            Debug.Log("text shouldn't show");
+        }
+
+        if (other.tag == "Flint")
         {
             isInFlintRange1 = false;
             pickUpFlintText.SetActive(false);
+            Debug.Log("text shouldn't show");
         }
+    }
 
-        
+    private IEnumerator StopText()
+    {
+        yield return new WaitForSeconds(2f);
+        pickUpFlintText.SetActive(false);
+        linkFlameText.SetActive(false);
     }
 }
