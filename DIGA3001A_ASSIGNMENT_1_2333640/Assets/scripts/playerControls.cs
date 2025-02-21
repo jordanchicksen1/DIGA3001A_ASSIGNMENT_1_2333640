@@ -29,6 +29,11 @@ public class playerControls : MonoBehaviour
     public float crouchSpeed = 1.5f; //short speed
     public bool isCrouching = false; //if short or normal
 
+
+    public bool isInCampfireRange = false;
+
+    //fire
+    public GameObject fire1;
     
 
     private void OnEnable()
@@ -137,11 +142,28 @@ public class playerControls : MonoBehaviour
 
     private void LightFire()
     {
-        Debug.Log("should have lit fire");
+        if(isInCampfireRange == true)
+        {
+            Debug.Log("should have lit fire");
+            fire1.SetActive(true);
+        }
+            
     }
 
     private void Sprint()
     {
         Debug.Log("should sprint");
+    }
+
+    public void OnTriggerStay(Collider other)
+    {
+        if(other.tag == "Campfire")
+        {
+            isInCampfireRange = true;
+        }
+        else
+        {
+            isInCampfireRange= false;
+        }
     }
 }
