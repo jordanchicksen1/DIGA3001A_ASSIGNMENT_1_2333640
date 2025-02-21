@@ -1,5 +1,7 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.ExceptionServices;
 using UnityEditor.ShaderGraph;
 using UnityEngine;
 
@@ -31,9 +33,16 @@ public class playerControls : MonoBehaviour
 
 
     public bool isInCampfireRange = false;
+    public bool isInFlintRange1 = false;
 
     //fire
+    public GameObject linkFlameText;
     public GameObject fire1;
+
+    //flint
+    public GameObject pickUpFlintText;
+    public flintManager flintManager;
+    public GameObject firstFlint;
     
 
     private void OnEnable()
@@ -142,11 +151,23 @@ public class playerControls : MonoBehaviour
 
     private void LightFire()
     {
-        if(isInCampfireRange == true)
+        if(isInCampfireRange == true && flintManager.flint > 0.99)
         {
             Debug.Log("should have lit fire");
             fire1.SetActive(true);
             isInCampfireRange = false;
+            flintManager.decreaseFlint();
+        }
+        else
+        {
+            Debug.Log("No flint");
+        }
+        if(isInFlintRange1 == true)
+        {
+            Debug.Log("pick up flint");
+            Destroy(firstFlint);
+            flintManager.addFlint();
+            
         }
             
     }
@@ -161,10 +182,25 @@ public class playerControls : MonoBehaviour
         if(other.tag == "Campfire")
         {
             isInCampfireRange = true;
+            linkFlameText.SetActive(true);
         }
         else
         {
             isInCampfireRange= false;
+            linkFlameText.SetActive(false);
         }
+
+        if(other.tag == "Flint")
+        {
+            isInFlintRange1 = true;
+            pickUpFlintText.SetActive(true);
+        }
+        else
+        {
+            isInFlintRange1 = false;
+            pickUpFlintText.SetActive(false);
+        }
+
+        
     }
 }

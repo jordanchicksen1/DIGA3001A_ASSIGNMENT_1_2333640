@@ -6,15 +6,20 @@ using UnityEngine.UI;
 
 public class flintManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public int flint;
+    public TextMeshProUGUI flintText;
+
+    [ContextMenu("Increase Flint")]
+    public void addFlint()
     {
-        
+        flint = flint + 1;
+        flintText.text = flint.ToString();
     }
 
-    // Update is called once per frame
-    void Update()
+    [ContextMenu("Decrease Flint")]
+    public void decreaseFlint()
     {
-        
+        flint = flint - 1;
+        flintText.text = flint.ToString();
     }
 }
