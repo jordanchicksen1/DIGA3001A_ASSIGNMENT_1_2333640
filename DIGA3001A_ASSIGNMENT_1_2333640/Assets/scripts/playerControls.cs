@@ -32,15 +32,43 @@ public class playerControls : MonoBehaviour
     public bool isCrouching = false; //if short or normal
 
 
-    public bool isInCampfireRange = false;
-    public bool isInFlintRange1 = false;
+   
+    public bool isInFlintRange = false;
+
+    //torch
+    public bool hasLitTorch = false;
+    public GameObject torchFlame;
+    public bool isInOriginalFlameRange = false;
+
+    public GameObject litTorchText;
+    public GameObject lightTorchWords;
 
     //fire
+    public campfireManager campfireManager;
     public GameObject linkFlameText;
+    public GameObject flameLinkedText;
+    
+    public bool isInCampfireRange1 = false;
     public GameObject fire1;
+    public bool flameLinked1 = false;
+
+    public bool isInCampfireRange2 = false;
+    public GameObject fire2;
+    public bool flameLinked2 = false;
+
+    public bool isInCampfireRange3 = false;
+    public GameObject fire3;
+    public bool flameLinked3 = false;
+
+    public bool isInCampfireRange4 = false;
+    public GameObject fire4;
+    public bool flameLinked4 = false;
+
+    public bool isInCampfireRange5 = false;
+    public GameObject fire5;
+    public bool flameLinked5 = false;
 
     //flint
-    public GameObject pickUpFlintText;
     public flintManager flintManager;
     public GameObject firstFlint;
     
@@ -151,25 +179,64 @@ public class playerControls : MonoBehaviour
 
     private void LightFire()
     {
-        if(isInCampfireRange == true && flintManager.flint > 0.99)
+       if(isInOriginalFlameRange == true && hasLitTorch == false)
+        {
+            torchFlame.SetActive(true);
+            lightTorchWords.SetActive(false);    
+            hasLitTorch = true; 
+            StartCoroutine(TorchLitText());
+        }
+        
+        if(isInCampfireRange1 == true && flameLinked1 == false && hasLitTorch == true)
         {
             Debug.Log("should have lit fire");
             fire1.SetActive(true);
-            isInCampfireRange = false;
-            flintManager.decreaseFlint();
+            campfireManager.addCampfire();
+            linkFlameText.SetActive(false);
+            flameLinked1 = true;
+            StartCoroutine(FlameLinkedText());
         }
-        else
+
+        if (isInCampfireRange2 == true && flameLinked2 == false && hasLitTorch == true)
         {
-            Debug.Log("No flint");
+            Debug.Log("should have lit fire");
+            fire2.SetActive(true);
+            campfireManager.addCampfire();
+            linkFlameText.SetActive(false);
+            flameLinked2 = true;
+            StartCoroutine(FlameLinkedText());
         }
-        if(isInFlintRange1 == true)
+
+        if (isInCampfireRange3 == true && flameLinked3 == false && hasLitTorch == true)
         {
-            Debug.Log("pick up flint");
-            Destroy(firstFlint);
-            flintManager.addFlint();
-            
+            Debug.Log("should have lit fire");
+            fire3.SetActive(true);
+            campfireManager.addCampfire();
+            linkFlameText.SetActive(false);
+            flameLinked3 = true;
+            StartCoroutine(FlameLinkedText());
         }
-            
+
+        if (isInCampfireRange4 == true && flameLinked4 == false && hasLitTorch == true)
+        {
+            Debug.Log("should have lit fire");
+            fire4.SetActive(true);
+            campfireManager.addCampfire();
+            linkFlameText.SetActive(false);
+            flameLinked4 = true;
+            StartCoroutine(FlameLinkedText());
+        }
+
+        if (isInCampfireRange5 == true && flameLinked5 == false && hasLitTorch == true)
+        {
+            Debug.Log("should have lit fire");
+            fire5.SetActive(true);
+            campfireManager.addCampfire();
+            linkFlameText.SetActive(false);
+            flameLinked5 = true;
+            StartCoroutine(FlameLinkedText());
+        }
+
     }
 
     private void Sprint()
@@ -179,43 +246,119 @@ public class playerControls : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Campfire")
+        if(other.tag == "Campfire1" && flameLinked1 == false)
         {
-            isInCampfireRange = true;
+            isInCampfireRange1 = true;
             linkFlameText.SetActive(true);
         }
         
 
-        if(other.tag == "Flint")
+        if (other.tag == "OriginalFlame" && hasLitTorch == false)
         {
-            isInFlintRange1 = true;
-           pickUpFlintText.SetActive(true);
+            
+            isInOriginalFlameRange = true;
+            lightTorchWords.SetActive(true);
+            Debug.Log("hello");
         }
-        
-        
+
+        if (other.tag == "Campfire2" && flameLinked2 == false)
+        {
+            isInCampfireRange2 = true;
+            linkFlameText.SetActive(true);
+        }
+
+        if (other.tag == "Campfire3" && flameLinked3 == false)
+        {
+            isInCampfireRange3 = true;
+            linkFlameText.SetActive(true);
+        }
+
+        if (other.tag == "Campfire4" && flameLinked4 == false)
+        {
+            isInCampfireRange4 = true;
+            linkFlameText.SetActive(true);
+        }
+
+        if (other.tag == "Campfire5" && flameLinked5 == false)
+        {
+            isInCampfireRange5 = true;
+            linkFlameText.SetActive(true);
+        }
+
+
     }
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Campfire")
+        if (other.tag == "OriginalFlame")
         {
-            isInCampfireRange = false;
+            isInOriginalFlameRange = false;
+            lightTorchWords.SetActive(false);
+            Debug.Log("text shouldn't show");
+        }
+
+        if (other.tag == "Campfire1")
+        {
+            isInCampfireRange1 = false;
             linkFlameText.SetActive(false);
             Debug.Log("text shouldn't show");
         }
 
-        if (other.tag == "Flint")
+        if (other.tag == "Campfire2")
         {
-            isInFlintRange1 = false;
-            pickUpFlintText.SetActive(false);
+            isInCampfireRange2 = false;
+            linkFlameText.SetActive(false);
             Debug.Log("text shouldn't show");
         }
+
+        if (other.tag == "Campfire3")
+        {
+            isInCampfireRange3 = false;
+            linkFlameText.SetActive(false);
+            Debug.Log("text shouldn't show");
+        }
+
+        if (other.tag == "Campfire4")
+        {
+            isInCampfireRange4 = false;
+            linkFlameText.SetActive(false);
+            Debug.Log("text shouldn't show");
+        }
+
+        if (other.tag == "Campfire5")
+        {
+            isInCampfireRange5 = false;
+            linkFlameText.SetActive(false);
+            Debug.Log("text shouldn't show");
+        }
+
+
     }
 
     private IEnumerator StopText()
     {
         yield return new WaitForSeconds(2f);
-        pickUpFlintText.SetActive(false);
+        //pickUpFlintText.SetActive(false);
         linkFlameText.SetActive(false);
+    }
+
+    private IEnumerator FlameLinkedText()
+    {
+        yield return new WaitForSeconds(0f);
+        flameLinkedText.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        flameLinkedText.SetActive(false);
+           
+        
+    }
+
+    private IEnumerator TorchLitText()
+    {
+        yield return new WaitForSeconds(0f);
+        litTorchText.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        litTorchText.SetActive(false);
+
+
     }
 }

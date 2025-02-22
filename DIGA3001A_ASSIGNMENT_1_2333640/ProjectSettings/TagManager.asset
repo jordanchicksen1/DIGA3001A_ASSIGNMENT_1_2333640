@@ -4,8 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Campfire
   - Flint
+  - Campfire1
+  - Campfire2
+  - Campfire3
+  - Campfire4
+  - Campfire5
   layers:
   - Default
   - TransparentFX

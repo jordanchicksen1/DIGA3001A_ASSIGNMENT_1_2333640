@@ -203,7 +203,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 2e3e6612f8b316240bcb9c2363e3eee6,
         type: 3}
       propertyPath: m_Name
-      value: campfire
+      value: campfire1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -434,6 +434,52 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 180286598}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &181103628
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 181103629}
+  - component: {fileID: 181103630}
+  m_Layer: 0
+  m_Name: campfireManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &181103629
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181103628}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2009088657}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &181103630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181103628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c457a8252d606d4cb4e7ffbca2161c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  campfire: 0
+  campfireText: {fileID: 330904167}
 --- !u!1 &256258165
 GameObject:
   m_ObjectHideFlags: 0
@@ -689,7 +735,7 @@ GameObject:
   - component: {fileID: 330904168}
   - component: {fileID: 330904167}
   m_Layer: 5
-  m_Name: flintNumber
+  m_Name: campfireNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1291,7 +1337,7 @@ GameObject:
   - component: {fileID: 470157630}
   - component: {fileID: 470157629}
   m_Layer: 5
-  m_Name: flintText
+  m_Name: campfireText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1336,7 +1382,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Flint
+  m_text: flames linked
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7ce5810630873fd49a8406874768970a, type: 2}
   m_sharedMaterial: {fileID: -7705877457068251523, guid: 7ce5810630873fd49a8406874768970a,
@@ -1400,7 +1446,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -5.731758, y: 0, z: 126.91017, w: 0}
+  m_margin: {x: -157.46626, y: 0, z: 126.91017, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1710,8 +1756,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.0821367, y: 0.074949555, z: 0.06262281}
-  m_Center: {x: -0.00031898363, y: 0.0014007093, z: -0.0070582735}
+  m_Size: {x: 0.0821367, y: 0.074949555, z: 0.039991863}
+  m_Center: {x: -0.00031898363, y: 0.0014007093, z: 0.004257171}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2241,7 +2287,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &1174222859
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2275,7 +2321,7 @@ GameObject:
   - component: {fileID: 1196731350}
   m_Layer: 0
   m_Name: campfireTrigger
-  m_TagString: Campfire
+  m_TagString: Campfire1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3375,11 +3421,14 @@ MonoBehaviour:
   standingHeight: 2
   crouchSpeed: 1.5
   isCrouching: 0
-  isInCampfireRange: 0
-  isInFlintRange1: 0
+  isInCampfireRange1: 0
+  isInFlintRange: 0
+  campfireManager: {fileID: 181103630}
   linkFlameText: {fileID: 1522094593}
   fire1: {fileID: 2077843844}
-  pickUpFlintText: {fileID: 345999101}
+  flameLinked1: 0
+  fire2: {fileID: 0}
+  flameLinked2: 0
   flintManager: {fileID: 1218757838}
   firstFlint: {fileID: 1174222856}
 --- !u!1 &1714269201
@@ -3741,6 +3790,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1218757837}
+  - {fileID: 181103629}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2077843844 stripped
