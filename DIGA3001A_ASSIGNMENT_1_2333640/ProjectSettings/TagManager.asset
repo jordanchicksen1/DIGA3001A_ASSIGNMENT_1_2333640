@@ -10,6 +10,7 @@ TagManager:
   - Campfire3
   - Campfire4
   - Campfire5
+  - OriginalFlame
   layers:
   - Default
   - TransparentFX
