@@ -71,7 +71,11 @@ public class playerControls : MonoBehaviour
     //flint
     public flintManager flintManager;
     public GameObject firstFlint;
-    
+
+    //hope
+    public bool decreaseHope = false;
+    public bool increaseHope = false;
+    public GameObject hopeUI;
 
     private void OnEnable()
     {
@@ -185,6 +189,9 @@ public class playerControls : MonoBehaviour
             lightTorchWords.SetActive(false);    
             hasLitTorch = true; 
             StartCoroutine(TorchLitText());
+            increaseHope = true;
+            decreaseHope = false;
+            hopeUI.SetActive(true);
         }
         
         if(isInCampfireRange1 == true && flameLinked1 == false && hasLitTorch == true)
@@ -195,6 +202,8 @@ public class playerControls : MonoBehaviour
             linkFlameText.SetActive(false);
             flameLinked1 = true;
             StartCoroutine(FlameLinkedText());
+            increaseHope = true;
+            decreaseHope = false;
         }
 
         if (isInCampfireRange2 == true && flameLinked2 == false && hasLitTorch == true)
@@ -205,6 +214,8 @@ public class playerControls : MonoBehaviour
             linkFlameText.SetActive(false);
             flameLinked2 = true;
             StartCoroutine(FlameLinkedText());
+            increaseHope = true;
+            decreaseHope = false;
         }
 
         if (isInCampfireRange3 == true && flameLinked3 == false && hasLitTorch == true)
@@ -215,6 +226,8 @@ public class playerControls : MonoBehaviour
             linkFlameText.SetActive(false);
             flameLinked3 = true;
             StartCoroutine(FlameLinkedText());
+            increaseHope = true;
+            decreaseHope = false;
         }
 
         if (isInCampfireRange4 == true && flameLinked4 == false && hasLitTorch == true)
@@ -225,6 +238,8 @@ public class playerControls : MonoBehaviour
             linkFlameText.SetActive(false);
             flameLinked4 = true;
             StartCoroutine(FlameLinkedText());
+            increaseHope = true;
+            decreaseHope = false;
         }
 
         if (isInCampfireRange5 == true && flameLinked5 == false && hasLitTorch == true)
@@ -235,6 +250,8 @@ public class playerControls : MonoBehaviour
             linkFlameText.SetActive(false);
             flameLinked5 = true;
             StartCoroutine(FlameLinkedText());
+            increaseHope = true;
+            decreaseHope = false;
         }
 
     }
@@ -246,10 +263,16 @@ public class playerControls : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Campfire1" && flameLinked1 == false)
+        if(other.tag == "Campfire1" && flameLinked1 == false && hasLitTorch == true)
         {
             isInCampfireRange1 = true;
             linkFlameText.SetActive(true);
+        }
+
+        if(other.tag == "Campfire1" && flameLinked1 == true)
+        {
+            increaseHope = true;
+            decreaseHope = false;
         }
         
 
@@ -261,75 +284,168 @@ public class playerControls : MonoBehaviour
             Debug.Log("hello");
         }
 
-        if (other.tag == "Campfire2" && flameLinked2 == false)
+        if (other.tag == "OriginalFlame" && hasLitTorch == true)
+        {
+            increaseHope = true;
+            decreaseHope = false;
+        }
+
+
+        if (other.tag == "Campfire2" && flameLinked2 == false && hasLitTorch == true)
         {
             isInCampfireRange2 = true;
             linkFlameText.SetActive(true);
+           
+        }
+        
+        if (other.tag == "Campfire2" && flameLinked2 == true)
+        {
+            increaseHope = true;
+            decreaseHope = false;
         }
 
-        if (other.tag == "Campfire3" && flameLinked3 == false)
+
+        if (other.tag == "Campfire3" && flameLinked3 == false && hasLitTorch == true)
         {
             isInCampfireRange3 = true;
             linkFlameText.SetActive(true);
+           
         }
 
-        if (other.tag == "Campfire4" && flameLinked4 == false)
+        if (other.tag == "Campfire3" && flameLinked3 == true)
+        {
+            increaseHope = true;
+            decreaseHope = false;
+        }
+
+        if (other.tag == "Campfire4" && flameLinked4 == false && hasLitTorch == true)
         {
             isInCampfireRange4 = true;
             linkFlameText.SetActive(true);
+         
         }
 
-        if (other.tag == "Campfire5" && flameLinked5 == false)
+        if (other.tag == "Campfire4" && flameLinked4 == true)
+        {
+            increaseHope = true;
+            decreaseHope = false;
+        }
+
+        if (other.tag == "Campfire5" && flameLinked5 == false && hasLitTorch == true)
         {
             isInCampfireRange5 = true;
             linkFlameText.SetActive(true);
+            
         }
 
+        if (other.tag == "Campfire5" && flameLinked5 == true)
+        {
+            increaseHope = true;
+            decreaseHope = false;
+        }
 
     }
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.tag == "OriginalFlame")
+        if (other.tag == "OriginalFlame" && hasLitTorch == true)
+        {
+            isInOriginalFlameRange = false;
+            lightTorchWords.SetActive(false);
+            Debug.Log("text shouldn't show");
+            decreaseHope = true;
+            increaseHope = false;
+        }
+
+        if (other.tag == "OriginalFlame" && hasLitTorch == false)
         {
             isInOriginalFlameRange = false;
             lightTorchWords.SetActive(false);
             Debug.Log("text shouldn't show");
         }
 
-        if (other.tag == "Campfire1")
+        if (other.tag == "Campfire1" && flameLinked1 == true)
         {
             isInCampfireRange1 = false;
             linkFlameText.SetActive(false);
             Debug.Log("text shouldn't show");
+            decreaseHope = true;
+            increaseHope = false;
         }
 
-        if (other.tag == "Campfire2")
+        if (other.tag == "Campfire1" && flameLinked1 == false)
+        {
+            isInCampfireRange1 = false;
+            linkFlameText.SetActive(false);
+            Debug.Log("text shouldn't show");
+           
+        }
+
+        if (other.tag == "Campfire2" && flameLinked2 == true)
+        {
+            isInCampfireRange2 = false;
+            linkFlameText.SetActive(false);
+            Debug.Log("text shouldn't show");
+            decreaseHope = true;
+            increaseHope = false;
+        }
+
+        if (other.tag == "Campfire2" && flameLinked2 == false)
         {
             isInCampfireRange2 = false;
             linkFlameText.SetActive(false);
             Debug.Log("text shouldn't show");
         }
 
-        if (other.tag == "Campfire3")
+        if (other.tag == "Campfire3" && flameLinked3 == true)
         {
             isInCampfireRange3 = false;
             linkFlameText.SetActive(false);
             Debug.Log("text shouldn't show");
+            decreaseHope = true;
+            increaseHope = false;
         }
 
-        if (other.tag == "Campfire4")
+        if (other.tag == "Campfire3" && flameLinked3 == false)
+        {
+            isInCampfireRange3 = false;
+            linkFlameText.SetActive(false);
+            Debug.Log("text shouldn't show");
+           
+        }
+
+        if (other.tag == "Campfire4" && flameLinked4 == true)
         {
             isInCampfireRange4 = false;
             linkFlameText.SetActive(false);
             Debug.Log("text shouldn't show");
+            decreaseHope = true;
+            increaseHope = false;
         }
 
-        if (other.tag == "Campfire5")
+        if (other.tag == "Campfire4" && flameLinked4 == false)
+        {
+            isInCampfireRange4 = false;
+            linkFlameText.SetActive(false);
+            Debug.Log("text shouldn't show");
+            
+        }
+
+        if (other.tag == "Campfire5" && flameLinked5 == true)
         {
             isInCampfireRange5 = false;
             linkFlameText.SetActive(false);
             Debug.Log("text shouldn't show");
+            decreaseHope = true;
+            increaseHope = false;
+        }
+
+        if (other.tag == "Campfire5" && flameLinked5 == false)
+        {
+            isInCampfireRange5 = false;
+            linkFlameText.SetActive(false);
+            Debug.Log("text shouldn't show");
+            
         }
 
 
