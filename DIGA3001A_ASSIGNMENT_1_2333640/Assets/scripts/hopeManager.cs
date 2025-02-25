@@ -11,6 +11,9 @@ public class hopeManager : MonoBehaviour
     public float currentHope;
     public Image hopeBar;
     public playerControls playerControls;
+    public Light Light;
+    public float maxFlame = 100f;
+    public float minFlame = 0f;
 
     public void Start()
     {
@@ -35,12 +38,20 @@ public class hopeManager : MonoBehaviour
         {
             currentHope -= Time.deltaTime;
             updateHopeBar();
+            if( Light.intensity >= minFlame)
+            {
+                Light.intensity -= Time.deltaTime;
+            }
         }
 
         if(playerControls.increaseHope == true) 
         { 
             currentHope += Time.deltaTime;
             updateHopeBar();
+            if( Light.intensity <= maxFlame)
+            {
+                Light.intensity += Time.deltaTime;
+            }
         }
         
     }
