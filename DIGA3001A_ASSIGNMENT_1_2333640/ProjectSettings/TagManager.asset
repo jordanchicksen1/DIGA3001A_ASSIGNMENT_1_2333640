@@ -11,6 +11,7 @@ TagManager:
   - Campfire4
   - Campfire5
   - OriginalFlame
+  - ActualFlint
   layers:
   - Default
   - TransparentFX

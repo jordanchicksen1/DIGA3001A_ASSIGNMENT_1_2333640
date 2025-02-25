@@ -344,6 +344,8 @@ public class playerControls : MonoBehaviour
             decreaseHope = false;
         }
 
+        
+
     }
 
     public void OnTriggerExit(Collider other)

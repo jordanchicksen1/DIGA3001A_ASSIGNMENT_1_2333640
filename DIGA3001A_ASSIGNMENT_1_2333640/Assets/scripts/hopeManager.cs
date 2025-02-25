@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 
 public class hopeManager : MonoBehaviour
@@ -14,6 +15,9 @@ public class hopeManager : MonoBehaviour
     public Light Light;
     public float maxFlame = 100f;
     public float minFlame = 0f;
+
+    //death screen
+    public GameObject endScreen;
 
     public void Start()
     {
@@ -41,6 +45,7 @@ public class hopeManager : MonoBehaviour
             if( Light.intensity >= minFlame)
             {
                 Light.intensity -= Time.deltaTime;
+               // Light.range -= Time.deltaTime * 0.02f;
             }
         }
 
@@ -51,8 +56,29 @@ public class hopeManager : MonoBehaviour
             if( Light.intensity <= maxFlame)
             {
                 Light.intensity += Time.deltaTime;
+               // Light.range += Time.deltaTime * 0.02f;
             }
         }
+
+       CheckHope();
         
+    }
+
+    public void RetryGame()
+    {
+        SceneManager.LoadScene("Game");
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+    public void CheckHope()
+    {
+        if (currentHope <= 0f)
+        {
+            endScreen.SetActive(true);
+        }
     }
 }
