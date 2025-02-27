@@ -33995,6 +33995,7 @@ MonoBehaviour:
   fuel1: {fileID: 643099309}
   fuel2: {fileID: 358675184}
   fuel3: {fileID: 1161689190}
+  hopeManager: {fileID: 1135946046}
   decreaseHope: 0
   increaseHope: 0
   hopeUI: {fileID: 51590104}
