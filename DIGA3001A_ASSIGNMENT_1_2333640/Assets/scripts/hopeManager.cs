@@ -24,6 +24,16 @@ public class hopeManager : MonoBehaviour
         currentHope = maxHope;
     }
 
+    public void UseFuel()
+    {
+        currentHope = currentHope + 20f;
+        updateHopeBar();
+    }
+    
+    public void EnemyAttack()
+    {
+
+    }
     public void updateHope(float amount)
     {
         currentHope += amount;

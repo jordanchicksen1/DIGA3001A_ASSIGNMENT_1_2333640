@@ -4,14 +4,20 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Flint
   - Campfire1
   - Campfire2
   - Campfire3
   - Campfire4
   - Campfire5
   - OriginalFlame
-  - ActualFlint
+  - Fuel
+  - FuelTrigger
+  - Fuel1
+  - FuelTrigger1
+  - Fuel2
+  - FuelTrigger2
+  - Fuel3
+  - FuelTrigger3
   layers:
   - Default
   - TransparentFX

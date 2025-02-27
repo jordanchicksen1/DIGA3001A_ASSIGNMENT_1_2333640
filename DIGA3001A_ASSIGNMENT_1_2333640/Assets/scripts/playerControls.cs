@@ -68,11 +68,23 @@ public class playerControls : MonoBehaviour
     public GameObject fire5;
     public bool flameLinked5 = false;
 
-    //flint
-    public flintManager flintManager;
-    public GameObject firstFlint;
+    public flintManager flintManager; //this is actually now the campfire manager
+
+    //fuel
+    public GameObject pickUpFuelText;
+    public bool isInFuelRange = false;
+    public bool isInFuelRange1 = false;
+    public bool isInFuelRange2 = false;
+    public bool isInFuelRange3 = false;
+    public fuelManager fuelManager;
+
+    public GameObject fuel;
+    public GameObject fuel1;
+    public GameObject fuel2;
+    public GameObject fuel3;
 
     //hope
+    public hopeManager hopeManager;
     public bool decreaseHope = false;
     public bool increaseHope = false;
     public GameObject hopeUI;
@@ -100,13 +112,15 @@ public class playerControls : MonoBehaviour
         playerInput.Player.Jump.performed += ctx => Jump(); // Call the Jump method when jump input is performed
 
 
-        // Subscribe to the pick-up input event
+        // Subscribe to the light fire input event
         playerInput.Player.LightFire.performed += ctx => LightFire(); // Call the PickUpObject method when pick-up input is performed
 
-        //Subscribe to the Pause
-        playerInput.Player.Sprint.performed += ctx => Sprint(); // pause the game
+        //Subscribe to the sprint
+        playerInput.Player.Sprint.performed += ctx => Sprint(); // sprint
 
-       
+        //Subscribe to the UseFuel
+        playerInput.Player.UseFuel.performed += ctx => UseFuel(); // use fuel
+
     }
 
     private void Awake()
@@ -179,6 +193,14 @@ public class playerControls : MonoBehaviour
         }
             
        
+    }
+
+    private void UseFuel()
+    {
+        Debug.Log("do the thing");
+        fuelManager.subtractFuel();
+        hopeManager.UseFuel();
+
     }
 
     private void LightFire()
@@ -254,6 +276,16 @@ public class playerControls : MonoBehaviour
             decreaseHope = false;
         }
 
+        if(isInFuelRange == true)
+        {
+            Debug.Log("pick up fuel");
+            Destroy(fuel);
+            fuelManager.addFuel();
+            pickUpFuelText.SetActive(false);
+            isInFuelRange = false;
+        }
+
+        
     }
 
     private void Sprint()
@@ -344,8 +376,33 @@ public class playerControls : MonoBehaviour
             decreaseHope = false;
         }
 
-        
+        if(other.tag == "FuelTrigger" && isInFuelRange == false)
+        {
+            isInFuelRange = true;
+            pickUpFuelText.SetActive(true);
+            Debug.Log("show fuel text");
+        }
 
+        if (other.tag == "FuelTrigger1" && isInFuelRange == false)
+        {
+            isInFuelRange1 = true;
+            pickUpFuelText.SetActive(true);
+            Debug.Log("show fuel text");
+        }
+
+        if (other.tag == "FuelTrigger2" && isInFuelRange == false)
+        {
+            isInFuelRange2 = true;
+            pickUpFuelText.SetActive(true);
+            Debug.Log("show fuel text");
+        }
+
+        if (other.tag == "FuelTrigger3" && isInFuelRange == false)
+        {
+            isInFuelRange3 = true;
+            pickUpFuelText.SetActive(true);
+            Debug.Log("show fuel text");
+        }
     }
 
     public void OnTriggerExit(Collider other)
@@ -450,7 +507,33 @@ public class playerControls : MonoBehaviour
             
         }
 
+        if (other.tag == "FuelTrigger" && isInFuelRange == true)
+        {
+            pickUpFuelText.SetActive(false) ;
+            isInFuelRange = false ;
+            Debug.Log("fuel text should go away");
+        }
 
+        if (other.tag == "FuelTrigger1" && isInFuelRange == true)
+        {
+            pickUpFuelText.SetActive(false);
+            isInFuelRange1 = false;
+            Debug.Log("fuel text should go away");
+        }
+
+        if (other.tag == "FuelTrigger2" && isInFuelRange == true)
+        {
+            pickUpFuelText.SetActive(false);
+            isInFuelRange2 = false;
+            Debug.Log("fuel text should go away");
+        }
+
+        if (other.tag == "FuelTrigger3" && isInFuelRange == true)
+        {
+            pickUpFuelText.SetActive(false);
+            isInFuelRange3 = false;
+            Debug.Log("fuel text should go away");
+        }
     }
 
     private IEnumerator StopText()

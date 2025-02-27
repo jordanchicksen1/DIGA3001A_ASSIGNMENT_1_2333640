@@ -71,6 +71,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseFuel"",
+                    ""type"": ""Button"",
+                    ""id"": ""2ba6d7f9-e5bb-4dcc-8b94-3682c877bd36"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -238,6 +247,28 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c1e8e83b-3dd6-4fc3-bc35-851cba8c85f8"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""UseFuel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b3feafc0-e083-4350-98d4-635e1eaf90e9"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""UseFuel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -274,6 +305,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_LookAround = m_Player.FindAction("LookAround", throwIfNotFound: true);
         m_Player_LightFire = m_Player.FindAction("LightFire", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
+        m_Player_UseFuel = m_Player.FindAction("UseFuel", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -340,6 +372,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_LookAround;
     private readonly InputAction m_Player_LightFire;
     private readonly InputAction m_Player_Sprint;
+    private readonly InputAction m_Player_UseFuel;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -349,6 +382,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @LookAround => m_Wrapper.m_Player_LookAround;
         public InputAction @LightFire => m_Wrapper.m_Player_LightFire;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
+        public InputAction @UseFuel => m_Wrapper.m_Player_UseFuel;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -373,6 +407,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Sprint.started += instance.OnSprint;
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
+            @UseFuel.started += instance.OnUseFuel;
+            @UseFuel.performed += instance.OnUseFuel;
+            @UseFuel.canceled += instance.OnUseFuel;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -392,6 +429,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Sprint.started -= instance.OnSprint;
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
+            @UseFuel.started -= instance.OnUseFuel;
+            @UseFuel.performed -= instance.OnUseFuel;
+            @UseFuel.canceled -= instance.OnUseFuel;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -434,5 +474,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnLookAround(InputAction.CallbackContext context);
         void OnLightFire(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
+        void OnUseFuel(InputAction.CallbackContext context);
     }
 }
