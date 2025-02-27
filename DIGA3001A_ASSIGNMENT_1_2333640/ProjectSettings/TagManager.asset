@@ -18,6 +18,7 @@ TagManager:
   - FuelTrigger2
   - Fuel3
   - FuelTrigger3
+  - Killbox
   layers:
   - Default
   - TransparentFX

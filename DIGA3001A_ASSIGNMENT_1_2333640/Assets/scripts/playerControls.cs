@@ -285,7 +285,32 @@ public class playerControls : MonoBehaviour
             isInFuelRange = false;
         }
 
-        
+        if (isInFuelRange1 == true)
+        {
+            Debug.Log("pick up fuel");
+            Destroy(fuel1);
+            fuelManager.addFuel();
+            pickUpFuelText.SetActive(false);
+            isInFuelRange1 = false;
+        }
+
+        if (isInFuelRange2 == true)
+        {
+            Debug.Log("pick up fuel");
+            Destroy(fuel2);
+            fuelManager.addFuel();
+            pickUpFuelText.SetActive(false);
+            isInFuelRange2 = false;
+        }
+
+        if (isInFuelRange3 == true)
+        {
+            Debug.Log("pick up fuel");
+            Destroy(fuel3);
+            fuelManager.addFuel();
+            pickUpFuelText.SetActive(false);
+            isInFuelRange3 = false;
+        }
     }
 
     private void Sprint()
