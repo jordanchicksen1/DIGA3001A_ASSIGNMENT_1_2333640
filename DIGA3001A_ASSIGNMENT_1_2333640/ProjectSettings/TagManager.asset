@@ -19,6 +19,10 @@ TagManager:
   - Fuel3
   - FuelTrigger3
   - Killbox
+  - GreenGateTrigger
+  - GreenKeyTrigger
+  - BlueGateTrigger
+  - BlueKeyTrigger
   layers:
   - Default
   - TransparentFX

@@ -27,6 +27,7 @@ public class hopeManager : MonoBehaviour
     public void UseFuel()
     {
         currentHope = currentHope + 20f;
+        Light.intensity = Light.intensity + 20f;
         updateHopeBar();
     }
     

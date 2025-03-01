@@ -89,6 +89,29 @@ public class playerControls : MonoBehaviour
     public bool increaseHope = false;
     public GameObject hopeUI;
 
+    //keys and gates
+    public GameObject openGateText;
+    public GameObject noKeyText;
+    public GameObject pickupKeyText;
+
+    public bool isInGreenGateRange = false;
+    //public bool hasOpenedGreenGate = false;
+    public GameObject greenGate;
+   
+    public bool isInGreenKeyRange = false;
+    public bool hasGreenKey;
+    public GameObject greenKey;
+    public GameObject greenKeyPic;
+
+    public bool isInBlueGateRange = false;
+    //public bool hasOpenedBlueGate = false;
+    public GameObject blueGate;
+
+    public bool isInBlueKeyRange = false;
+    public bool hasBlueKey;
+    public GameObject blueKey;
+    public GameObject blueKeyPic;
+
     private void OnEnable()
     {
 
@@ -311,6 +334,58 @@ public class playerControls : MonoBehaviour
             pickUpFuelText.SetActive(false);
             isInFuelRange3 = false;
         }
+
+        if(isInGreenGateRange == true && hasGreenKey == true)
+        {
+            Debug.Log("open gate");
+            Destroy(greenGate);
+            isInGreenGateRange = false;
+            openGateText.SetActive(false);
+        }
+
+        if(isInGreenKeyRange == true)
+        {
+            Debug.Log("pick up key");
+            hasGreenKey = true;
+            Destroy(greenKey);
+            pickupKeyText.SetActive(false);
+            greenKeyPic.SetActive(true );
+            isInGreenKeyRange = false;
+        }
+
+        if (isInGreenGateRange == true && hasGreenKey == false)
+        {
+            Debug.Log("don't have key");
+            isInGreenGateRange = false;
+            openGateText.SetActive(false);
+            StartCoroutine(NeedKey());
+        }
+
+        if (isInBlueGateRange == true && hasBlueKey == true)
+        {
+            Debug.Log("open gate");
+            Destroy(blueGate);
+            isInBlueGateRange = false;
+            openGateText.SetActive(false);
+        }
+
+        if (isInBlueKeyRange == true)
+        {
+            Debug.Log("pick up key");
+            hasBlueKey = true;
+            Destroy(blueKey);
+            pickupKeyText.SetActive(false);
+            blueKeyPic.SetActive(true);
+            isInBlueKeyRange = false;
+        }
+
+        if (isInBlueGateRange == true && hasBlueKey == false)
+        {
+            Debug.Log("don't have key");
+            isInBlueGateRange = false;
+            openGateText.SetActive(false);
+            StartCoroutine(NeedKey());
+        }
     }
 
     private void Sprint()
@@ -428,6 +503,38 @@ public class playerControls : MonoBehaviour
             pickUpFuelText.SetActive(true);
             Debug.Log("show fuel text");
         }
+
+        if (other.tag == "GreenGateTrigger" && isInGreenGateRange == false)
+        {
+            openGateText.SetActive(true);
+            isInGreenGateRange = true;
+            Debug.Log("gate text should show up");
+
+        }
+
+        if (other.tag == "GreenKeyTrigger" && isInGreenKeyRange == false)
+        {
+            pickupKeyText.SetActive(true);
+            isInGreenKeyRange = true;
+            Debug.Log("key text should show up");
+
+        }
+
+        if (other.tag == "BlueGateTrigger" && isInBlueGateRange == false)
+        {
+            openGateText.SetActive(true);
+            isInBlueGateRange = true;
+            Debug.Log("gate text should show up");
+
+        }
+
+        if (other.tag == "BlueKeyTrigger" && isInBlueKeyRange == false)
+        {
+            pickupKeyText.SetActive(true);
+            isInBlueKeyRange = true;
+            Debug.Log("key text should show up");
+
+        }
     }
 
     public void OnTriggerExit(Collider other)
@@ -539,25 +646,59 @@ public class playerControls : MonoBehaviour
             Debug.Log("fuel text should go away");
         }
 
-        if (other.tag == "FuelTrigger1" && isInFuelRange == true)
+        if (other.tag == "FuelTrigger1" && isInFuelRange1 == true)
         {
             pickUpFuelText.SetActive(false);
             isInFuelRange1 = false;
             Debug.Log("fuel text should go away");
         }
 
-        if (other.tag == "FuelTrigger2" && isInFuelRange == true)
+        if (other.tag == "FuelTrigger2" && isInFuelRange2 == true)
         {
             pickUpFuelText.SetActive(false);
             isInFuelRange2 = false;
             Debug.Log("fuel text should go away");
         }
 
-        if (other.tag == "FuelTrigger3" && isInFuelRange == true)
+        if (other.tag == "FuelTrigger3" && isInFuelRange3 == true)
         {
             pickUpFuelText.SetActive(false);
             isInFuelRange3 = false;
             Debug.Log("fuel text should go away");
+        }
+
+        if (other.tag == "GreenGateTrigger" && isInGreenGateRange == true)
+        {
+            openGateText.SetActive(false);
+            isInGreenGateRange = false ;
+            noKeyText.SetActive(false) ;
+            Debug.Log("gate text should go away");
+
+        }
+
+        if (other.tag == "GreenKeyTrigger" && isInGreenKeyRange == true)
+        {
+            pickupKeyText.SetActive(false);
+            isInGreenKeyRange = false;
+            Debug.Log("key text should go away");
+
+        }
+
+        if (other.tag == "BlueGateTrigger" && isInBlueGateRange == true)
+        {
+            openGateText.SetActive(false);
+            isInBlueGateRange = false;
+            noKeyText.SetActive(false);
+            Debug.Log("gate text should go away");
+
+        }
+
+        if (other.tag == "BlueKeyTrigger" && isInBlueKeyRange == true)
+        {
+            pickupKeyText.SetActive(false);
+            isInBlueKeyRange = false;
+            Debug.Log("key text should go away");
+
         }
     }
 
@@ -586,5 +727,13 @@ public class playerControls : MonoBehaviour
         litTorchText.SetActive(false);
 
 
+    }
+
+    private IEnumerator NeedKey()
+    {
+        yield return new WaitForSeconds(0f);
+        noKeyText.SetActive(true) ;
+        yield return new WaitForSeconds(1.5f);
+        noKeyText.SetActive(false);
     }
 }
