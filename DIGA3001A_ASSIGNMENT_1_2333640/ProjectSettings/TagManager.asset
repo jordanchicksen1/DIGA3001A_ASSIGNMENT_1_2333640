@@ -23,6 +23,8 @@ TagManager:
   - GreenKeyTrigger
   - BlueGateTrigger
   - BlueKeyTrigger
+  - RedGateTrigger
+  - RedKeyTrigger
   layers:
   - Default
   - TransparentFX
