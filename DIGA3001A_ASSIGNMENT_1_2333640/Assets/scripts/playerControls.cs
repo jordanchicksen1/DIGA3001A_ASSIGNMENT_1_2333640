@@ -95,7 +95,6 @@ public class playerControls : MonoBehaviour
     public GameObject pickupKeyText;
 
     public bool isInGreenGateRange = false;
-    //public bool hasOpenedGreenGate = false;
     public GameObject greenGate;
    
     public bool isInGreenKeyRange = false;
@@ -104,13 +103,20 @@ public class playerControls : MonoBehaviour
     public GameObject greenKeyPic;
 
     public bool isInBlueGateRange = false;
-    //public bool hasOpenedBlueGate = false;
     public GameObject blueGate;
 
     public bool isInBlueKeyRange = false;
     public bool hasBlueKey;
     public GameObject blueKey;
     public GameObject blueKeyPic;
+
+    public bool isInRedGateRange = false;
+    public GameObject redGate;
+
+    public bool isInRedKeyRange = false;
+    public bool hasRedKey;
+    public GameObject redKey;
+    public GameObject redKeyPic;
 
     private void OnEnable()
     {
@@ -386,6 +392,32 @@ public class playerControls : MonoBehaviour
             openGateText.SetActive(false);
             StartCoroutine(NeedKey());
         }
+
+        if (isInRedGateRange == true && hasRedKey == true)
+        {
+            Debug.Log("open gate");
+            Destroy(redGate);
+            isInRedGateRange = false;
+            openGateText.SetActive(false);
+        }
+
+        if (isInRedKeyRange == true)
+        {
+            Debug.Log("pick up key");
+            hasRedKey = true;
+            Destroy(redKey);
+            pickupKeyText.SetActive(false);
+            redKeyPic.SetActive(true);
+            isInRedKeyRange = false;
+        }
+
+        if (isInRedGateRange == true && hasRedKey == false)
+        {
+            Debug.Log("don't have key");
+            isInRedGateRange = false;
+            openGateText.SetActive(false);
+            StartCoroutine(NeedKey());
+        }
     }
 
     private void Sprint()
@@ -532,6 +564,22 @@ public class playerControls : MonoBehaviour
         {
             pickupKeyText.SetActive(true);
             isInBlueKeyRange = true;
+            Debug.Log("key text should show up");
+
+        }
+
+        if (other.tag == "RedGateTrigger" && isInRedGateRange == false)
+        {
+            openGateText.SetActive(true);
+            isInRedGateRange = true;
+            Debug.Log("gate text should show up");
+
+        }
+
+        if (other.tag == "RedKeyTrigger" && isInRedKeyRange == false)
+        {
+            pickupKeyText.SetActive(true);
+            isInRedKeyRange = true;
             Debug.Log("key text should show up");
 
         }
@@ -697,6 +745,23 @@ public class playerControls : MonoBehaviour
         {
             pickupKeyText.SetActive(false);
             isInBlueKeyRange = false;
+            Debug.Log("key text should go away");
+
+        }
+
+        if (other.tag == "RedGateTrigger" && isInRedGateRange == true)
+        {
+            openGateText.SetActive(false);
+            isInRedGateRange = false;
+            noKeyText.SetActive(false);
+            Debug.Log("gate text should go away");
+
+        }
+
+        if (other.tag == "RedKeyTrigger" && isInRedKeyRange == true)
+        {
+            pickupKeyText.SetActive(false);
+            isInRedKeyRange = false;
             Debug.Log("key text should go away");
 
         }
