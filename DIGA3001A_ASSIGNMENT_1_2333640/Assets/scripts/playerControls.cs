@@ -583,6 +583,12 @@ public class playerControls : MonoBehaviour
             Debug.Log("key text should show up");
 
         }
+
+        if (other.tag == "Killbox")
+        {
+            transform.position = new Vector3(-71.13f, -1f, -104.81f);
+            Debug.Log("should've teleported player");
+        }
     }
 
     public void OnTriggerExit(Collider other)
@@ -765,6 +771,8 @@ public class playerControls : MonoBehaviour
             Debug.Log("key text should go away");
 
         }
+
+        
     }
 
     private IEnumerator StopText()
