@@ -25,6 +25,8 @@ TagManager:
   - BlueKeyTrigger
   - RedGateTrigger
   - RedKeyTrigger
+  - Fuel4
+  - FuelTrigger4
   layers:
   - Default
   - TransparentFX

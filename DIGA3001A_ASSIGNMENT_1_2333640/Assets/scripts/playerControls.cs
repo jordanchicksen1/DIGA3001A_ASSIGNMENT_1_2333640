@@ -76,12 +76,14 @@ public class playerControls : MonoBehaviour
     public bool isInFuelRange1 = false;
     public bool isInFuelRange2 = false;
     public bool isInFuelRange3 = false;
+    public bool isInFuelRange4 = false;
     public fuelManager fuelManager;
 
     public GameObject fuel;
     public GameObject fuel1;
     public GameObject fuel2;
     public GameObject fuel3;
+    public GameObject fuel4;
 
     //hope
     public hopeManager hopeManager;
@@ -132,6 +134,9 @@ public class playerControls : MonoBehaviour
     public GameObject sitText;
 
     public bool isUsingTeleportationMenu = false;
+
+    //rock door
+    public GameObject rockDoor;
     private void OnEnable()
     {
 
@@ -264,6 +269,7 @@ public class playerControls : MonoBehaviour
             increaseHope = true;
             decreaseHope = false;
             hopeUI.SetActive(true);
+            Destroy(rockDoor);
         }
 
        //teleport to the original flame
@@ -414,7 +420,16 @@ public class playerControls : MonoBehaviour
             isInFuelRange3 = false;
         }
 
-        if(isInGreenGateRange == true && hasGreenKey == true)
+        if (isInFuelRange4 == true)
+        {
+            Debug.Log("pick up fuel");
+            Destroy(fuel4);
+            fuelManager.addFuel();
+            pickUpFuelText.SetActive(false);
+            isInFuelRange4 = false;
+        }
+
+        if (isInGreenGateRange == true && hasGreenKey == true)
         {
             Debug.Log("open gate");
             Destroy(greenGate);
@@ -601,23 +616,30 @@ public class playerControls : MonoBehaviour
             Debug.Log("show fuel text");
         }
 
-        if (other.tag == "FuelTrigger1" && isInFuelRange == false)
+        if (other.tag == "FuelTrigger1" && isInFuelRange1 == false)
         {
             isInFuelRange1 = true;
             pickUpFuelText.SetActive(true);
             Debug.Log("show fuel text");
         }
 
-        if (other.tag == "FuelTrigger2" && isInFuelRange == false)
+        if (other.tag == "FuelTrigger2" && isInFuelRange2 == false)
         {
             isInFuelRange2 = true;
             pickUpFuelText.SetActive(true);
             Debug.Log("show fuel text");
         }
 
-        if (other.tag == "FuelTrigger3" && isInFuelRange == false)
+        if (other.tag == "FuelTrigger3" && isInFuelRange3 == false)
         {
             isInFuelRange3 = true;
+            pickUpFuelText.SetActive(true);
+            Debug.Log("show fuel text");
+        }
+
+        if (other.tag == "FuelTrigger4" && isInFuelRange4 == false)
+        {
+            isInFuelRange4 = true;
             pickUpFuelText.SetActive(true);
             Debug.Log("show fuel text");
         }
@@ -811,6 +833,13 @@ public class playerControls : MonoBehaviour
         {
             pickUpFuelText.SetActive(false);
             isInFuelRange3 = false;
+            Debug.Log("fuel text should go away");
+        }
+
+        if (other.tag == "FuelTrigger4" && isInFuelRange4 == true)
+        {
+            pickUpFuelText.SetActive(false);
+            isInFuelRange4  = false;
             Debug.Log("fuel text should go away");
         }
 
