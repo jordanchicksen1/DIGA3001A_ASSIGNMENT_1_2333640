@@ -118,6 +118,9 @@ public class playerControls : MonoBehaviour
     public GameObject redKey;
     public GameObject redKeyPic;
 
+
+    //killbox teleporter
+    public GameObject killboxTeleporter;
     private void OnEnable()
     {
 
@@ -586,7 +589,7 @@ public class playerControls : MonoBehaviour
 
         if (other.tag == "Killbox")
         {
-            transform.position = new Vector3(-71.13f, -1f, -104.81f);
+            StartCoroutine(Killbox());
             Debug.Log("should've teleported player");
         }
     }
@@ -808,5 +811,14 @@ public class playerControls : MonoBehaviour
         noKeyText.SetActive(true) ;
         yield return new WaitForSeconds(1.5f);
         noKeyText.SetActive(false);
+    }
+
+    private IEnumerator Killbox()
+    {
+        yield return new WaitForSeconds(0f);
+        this.transform.position = new Vector3(-58.8f, 12.1f, -147.2f);
+        _characterController.enabled = false;
+        yield return new WaitForSeconds(0.01f);
+        _characterController.enabled = true;
     }
 }

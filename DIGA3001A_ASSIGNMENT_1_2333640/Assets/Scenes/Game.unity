@@ -25405,6 +25405,7 @@ GameObject:
   m_Component:
   - component: {fileID: 815627203}
   - component: {fileID: 815627204}
+  - component: {fileID: 815627205}
   m_Layer: 0
   m_Name: killBox1
   m_TagString: Killbox
@@ -25448,6 +25449,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 6.695419, y: 1, z: 6.132774}
   m_Center: {x: 0.011629596, y: 0, z: 0.053662542}
+--- !u!54 &815627205
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815627202}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 1
 --- !u!1 &822238890
 GameObject:
   m_ObjectHideFlags: 0
@@ -39637,6 +39665,37 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &1463556690
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1463556691}
+  m_Layer: 0
+  m_Name: killboxTeleporter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1463556691
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1463556690}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -58.8, y: 12.1, z: -147.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1466540624 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 77bd2ea4ed4fcf244b413cac38f99cbd,
@@ -47338,6 +47397,7 @@ MonoBehaviour:
   hasRedKey: 0
   redKey: {fileID: 1745160738}
   redKeyPic: {fileID: 9933295}
+  killboxTeleporter: {fileID: 1463556690}
 --- !u!4 &1650259235 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 77bd2ea4ed4fcf244b413cac38f99cbd,
@@ -58755,3 +58815,4 @@ SceneRoots:
   - {fileID: 610257416}
   - {fileID: 1020947401}
   - {fileID: 830678141}
+  - {fileID: 1463556691}
