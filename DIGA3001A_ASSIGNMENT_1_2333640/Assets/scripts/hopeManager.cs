@@ -30,6 +30,13 @@ public class hopeManager : MonoBehaviour
         Light.intensity = Light.intensity + 20f;
         updateHopeBar();
     }
+
+    public void RestoreAllHope()
+    {
+        //currentHope = currentHope + 100f;
+        //Light.intensity = Light.intensity + 100f;
+       // updateHopeBar();
+    }
     
     public void EnemyAttack()
     {

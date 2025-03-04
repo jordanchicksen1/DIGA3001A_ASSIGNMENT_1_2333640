@@ -121,6 +121,17 @@ public class playerControls : MonoBehaviour
 
     //killbox teleporter
     public GameObject killboxTeleporter;
+
+    //telepotation menu
+    public GameObject teleportationMenu;
+    public GameObject theAbyss; //campfire2
+    public GameObject easternCell; //campfire1
+    public GameObject northernCell; //campfire3
+    public GameObject southernCell; //campfire5
+
+    public GameObject sitText;
+
+    public bool isUsingTeleportationMenu = false;
     private void OnEnable()
     {
 
@@ -171,7 +182,8 @@ public class playerControls : MonoBehaviour
 
     private void Move()
     {
-        
+        if( isUsingTeleportationMenu == false)
+        {
             // Create a movement vector based on the input
             Vector3 move = new Vector3(_moveInput.x, 0, _moveInput.y);
 
@@ -182,12 +194,15 @@ public class playerControls : MonoBehaviour
 
             // Move the character controller based on the movement vector and speed
             _characterController.Move(move * currentSpeed * Time.deltaTime);
+        }
+            
         
     }
 
     private void LookAround()
     {
-       
+       if ( isUsingTeleportationMenu == false)
+        {
             // Get horizontal and vertical look inputs and adjust based on sensitivity
             var lookX = _lookInput.x * lookSpeed;
             var lookY = _lookInput.y * lookSpeed;
@@ -201,6 +216,8 @@ public class playerControls : MonoBehaviour
 
             // Apply the clamped vertical rotation to the player camera
             playerCamera.localEulerAngles = new Vector3(_verticalLookRotation, 0, 0);
+        }
+           
         
     }
 
@@ -218,7 +235,7 @@ public class playerControls : MonoBehaviour
     private void Jump()
     {
 
-        if (_characterController.isGrounded)
+        if (_characterController.isGrounded && isUsingTeleportationMenu == false)
         {
             // Calculate the jump velocity
             _velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
@@ -241,11 +258,20 @@ public class playerControls : MonoBehaviour
         {
             torchFlame.SetActive(true);
             lightTorchWords.SetActive(false);    
-            hasLitTorch = true; 
+            // hasLitTorch = true; 
+            StartCoroutine(HasLitTorchBool());
             StartCoroutine(TorchLitText());
             increaseHope = true;
             decreaseHope = false;
             hopeUI.SetActive(true);
+        }
+
+       //teleport to the original flame
+        if(isInOriginalFlameRange == true && hasLitTorch == true) 
+        {
+            isUsingTeleportationMenu = true;
+            teleportationMenu.SetActive(true);
+            hopeManager.RestoreAllHope();
         }
         
         if(isInCampfireRange1 == true && flameLinked1 == false && hasLitTorch == true)
@@ -254,10 +280,20 @@ public class playerControls : MonoBehaviour
             fire1.SetActive(true);
             campfireManager.addCampfire();
             linkFlameText.SetActive(false);
-            flameLinked1 = true;
+            // flameLinked1 = true;
+            StartCoroutine(FlameLinked1());
             StartCoroutine(FlameLinkedText());
             increaseHope = true;
             decreaseHope = false;
+            easternCell.SetActive(true);
+        }
+
+        //teleport to eastern cell
+        if (isInCampfireRange1 == true && flameLinked1 == true)
+        {
+            isUsingTeleportationMenu = true;
+            teleportationMenu.SetActive(true);
+            hopeManager.RestoreAllHope();
         }
 
         if (isInCampfireRange2 == true && flameLinked2 == false && hasLitTorch == true)
@@ -266,10 +302,20 @@ public class playerControls : MonoBehaviour
             fire2.SetActive(true);
             campfireManager.addCampfire();
             linkFlameText.SetActive(false);
-            flameLinked2 = true;
+            //flameLinked2 = true;
+            StartCoroutine(FlameLinked2());
             StartCoroutine(FlameLinkedText());
             increaseHope = true;
             decreaseHope = false;
+            theAbyss.SetActive(true);
+        }
+
+        //teleport to the abyss
+        if (isInCampfireRange2 == true && flameLinked2 == true)
+        {
+            isUsingTeleportationMenu = true;
+            teleportationMenu.SetActive(true);
+            hopeManager.RestoreAllHope();
         }
 
         if (isInCampfireRange3 == true && flameLinked3 == false && hasLitTorch == true)
@@ -278,10 +324,20 @@ public class playerControls : MonoBehaviour
             fire3.SetActive(true);
             campfireManager.addCampfire();
             linkFlameText.SetActive(false);
-            flameLinked3 = true;
+            //flameLinked3 = true;
+            StartCoroutine(FlameLinked3());
             StartCoroutine(FlameLinkedText());
             increaseHope = true;
             decreaseHope = false;
+            northernCell.SetActive(true);
+        }
+
+        //teleport to northen cell
+        if (isInCampfireRange3 == true && flameLinked3 == true)
+        {
+            isUsingTeleportationMenu = true;
+            teleportationMenu.SetActive(true);
+            hopeManager.RestoreAllHope();
         }
 
         if (isInCampfireRange4 == true && flameLinked4 == false && hasLitTorch == true)
@@ -290,11 +346,14 @@ public class playerControls : MonoBehaviour
             fire4.SetActive(true);
             campfireManager.addCampfire();
             linkFlameText.SetActive(false);
-            flameLinked4 = true;
+            //flameLinked4 = true;
+            StartCoroutine(FlameLinked4());
             StartCoroutine(FlameLinkedText());
             increaseHope = true;
             decreaseHope = false;
         }
+
+        
 
         if (isInCampfireRange5 == true && flameLinked5 == false && hasLitTorch == true)
         {
@@ -302,13 +361,24 @@ public class playerControls : MonoBehaviour
             fire5.SetActive(true);
             campfireManager.addCampfire();
             linkFlameText.SetActive(false);
-            flameLinked5 = true;
+            //flameLinked5 = true;
+            StartCoroutine(FlameLinked5());
             StartCoroutine(FlameLinkedText());
             increaseHope = true;
             decreaseHope = false;
+            southernCell.SetActive(true);
+
         }
 
-        if(isInFuelRange == true)
+        //teleport to southern cell
+        if (isInCampfireRange5 == true && flameLinked5 == true)
+        {
+            isUsingTeleportationMenu = true;
+            teleportationMenu.SetActive(true);
+            hopeManager.RestoreAllHope();
+        }
+
+        if (isInFuelRange == true)
         {
             Debug.Log("pick up fuel");
             Destroy(fuel);
@@ -440,6 +510,8 @@ public class playerControls : MonoBehaviour
         {
             increaseHope = true;
             decreaseHope = false;
+            isInCampfireRange1 = true;
+            sitText.SetActive(true);
         }
         
 
@@ -455,6 +527,8 @@ public class playerControls : MonoBehaviour
         {
             increaseHope = true;
             decreaseHope = false;
+            isInOriginalFlameRange = true;
+            sitText.SetActive(true);
         }
 
 
@@ -469,6 +543,9 @@ public class playerControls : MonoBehaviour
         {
             increaseHope = true;
             decreaseHope = false;
+            isInCampfireRange2 = true;
+            sitText.SetActive(true);
+
         }
 
 
@@ -483,6 +560,8 @@ public class playerControls : MonoBehaviour
         {
             increaseHope = true;
             decreaseHope = false;
+            isInCampfireRange3 = true;
+            sitText.SetActive(true);
         }
 
         if (other.tag == "Campfire4" && flameLinked4 == false && hasLitTorch == true)
@@ -496,6 +575,8 @@ public class playerControls : MonoBehaviour
         {
             increaseHope = true;
             decreaseHope = false;
+            isInCampfireRange4 = true;
+            sitText.SetActive(true);
         }
 
         if (other.tag == "Campfire5" && flameLinked5 == false && hasLitTorch == true)
@@ -509,6 +590,8 @@ public class playerControls : MonoBehaviour
         {
             increaseHope = true;
             decreaseHope = false;
+            isInCampfireRange5 = true;
+            sitText.SetActive(true);
         }
 
         if(other.tag == "FuelTrigger" && isInFuelRange == false)
@@ -600,9 +683,11 @@ public class playerControls : MonoBehaviour
         {
             isInOriginalFlameRange = false;
             lightTorchWords.SetActive(false);
+            sitText.SetActive(false);
             Debug.Log("text shouldn't show");
             decreaseHope = true;
             increaseHope = false;
+
         }
 
         if (other.tag == "OriginalFlame" && hasLitTorch == false)
@@ -616,6 +701,7 @@ public class playerControls : MonoBehaviour
         {
             isInCampfireRange1 = false;
             linkFlameText.SetActive(false);
+            sitText.SetActive(false);
             Debug.Log("text shouldn't show");
             decreaseHope = true;
             increaseHope = false;
@@ -633,6 +719,7 @@ public class playerControls : MonoBehaviour
         {
             isInCampfireRange2 = false;
             linkFlameText.SetActive(false);
+            sitText.SetActive(false);
             Debug.Log("text shouldn't show");
             decreaseHope = true;
             increaseHope = false;
@@ -649,6 +736,7 @@ public class playerControls : MonoBehaviour
         {
             isInCampfireRange3 = false;
             linkFlameText.SetActive(false);
+            sitText.SetActive(false);
             Debug.Log("text shouldn't show");
             decreaseHope = true;
             increaseHope = false;
@@ -666,6 +754,7 @@ public class playerControls : MonoBehaviour
         {
             isInCampfireRange4 = false;
             linkFlameText.SetActive(false);
+            sitText.SetActive(false);
             Debug.Log("text shouldn't show");
             decreaseHope = true;
             increaseHope = false;
@@ -683,6 +772,7 @@ public class playerControls : MonoBehaviour
         {
             isInCampfireRange5 = false;
             linkFlameText.SetActive(false);
+            sitText.SetActive(false);
             Debug.Log("text shouldn't show");
             decreaseHope = true;
             increaseHope = false;
@@ -820,5 +910,46 @@ public class playerControls : MonoBehaviour
         _characterController.enabled = false;
         yield return new WaitForSeconds(0.01f);
         _characterController.enabled = true;
+    }
+
+    private IEnumerator HasLitTorchBool()
+    {
+        yield return new WaitForSeconds(0.5f);
+        hasLitTorch = true;
+        Debug.Log("it should've turned the bool on");
+    }
+
+    private IEnumerator FlameLinked1()
+    {
+        yield return new WaitForSeconds(0.5f);
+        flameLinked1 = true;
+        Debug.Log("it should've turned the bool on");
+    }
+
+    private IEnumerator FlameLinked2()
+    {
+        yield return new WaitForSeconds(0.5f);
+        flameLinked2 = true;
+        Debug.Log("it should've turned the bool on");
+    }
+
+    private IEnumerator FlameLinked3()
+    {
+        yield return new WaitForSeconds(0.5f);
+        flameLinked3 = true;
+        Debug.Log("it should've turned the bool on");
+    }
+    private IEnumerator FlameLinked4()
+    {
+        yield return new WaitForSeconds(0.5f);
+        flameLinked4 = true;
+        Debug.Log("it should've turned the bool on");
+    }
+
+    private IEnumerator FlameLinked5()
+    {
+        yield return new WaitForSeconds(0.5f);
+        flameLinked5 = true;
+        Debug.Log("it should've turned the bool on");
     }
 }
