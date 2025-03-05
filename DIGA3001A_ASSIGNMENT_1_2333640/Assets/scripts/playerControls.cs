@@ -137,6 +137,14 @@ public class playerControls : MonoBehaviour
 
     //rock door
     public GameObject rockDoor;
+
+    //sfx
+    public AudioSource sfxs;
+    public AudioClip startFireSFX;
+    public AudioClip pickUpSFX;
+    public AudioClip gateOpeningSFX;
+    public AudioClip gateLockedSFX;
+    public AudioClip teleportSFX;
     private void OnEnable()
     {
 
@@ -212,7 +220,7 @@ public class playerControls : MonoBehaviour
             var lookX = _lookInput.x * lookSpeed;
             var lookY = _lookInput.y * lookSpeed;
 
-            // Horizontal rotation: Rotate the player object around the y-axis
+            // Horizontal rotation: Rotate the player object around the y-axis 
             transform.Rotate(0, lookX, 0);
 
             // Vertical rotation: Adjust the vertical look rotation and clamp it to prevent flipping
@@ -270,6 +278,9 @@ public class playerControls : MonoBehaviour
             decreaseHope = false;
             hopeUI.SetActive(true);
             Destroy(rockDoor);
+
+            sfxs.clip = startFireSFX;
+            sfxs.Play();
         }
 
        //teleport to the original flame
@@ -278,6 +289,9 @@ public class playerControls : MonoBehaviour
             isUsingTeleportationMenu = true;
             teleportationMenu.SetActive(true);
             hopeManager.RestoreAllHope();
+
+            //sfxs.clip = teleportSFX;
+            //sfxs.Play();
         }
         
         if(isInCampfireRange1 == true && flameLinked1 == false && hasLitTorch == true)
@@ -292,6 +306,9 @@ public class playerControls : MonoBehaviour
             increaseHope = true;
             decreaseHope = false;
             easternCell.SetActive(true);
+
+            sfxs.clip = startFireSFX;
+            sfxs.Play();
         }
 
         //teleport to eastern cell
@@ -300,6 +317,9 @@ public class playerControls : MonoBehaviour
             isUsingTeleportationMenu = true;
             teleportationMenu.SetActive(true);
             hopeManager.RestoreAllHope();
+
+            //sfxs.clip = teleportSFX;
+           // sfxs.Play();
         }
 
         if (isInCampfireRange2 == true && flameLinked2 == false && hasLitTorch == true)
@@ -314,6 +334,9 @@ public class playerControls : MonoBehaviour
             increaseHope = true;
             decreaseHope = false;
             theAbyss.SetActive(true);
+
+            sfxs.clip = startFireSFX;
+            sfxs.Play();
         }
 
         //teleport to the abyss
@@ -322,6 +345,9 @@ public class playerControls : MonoBehaviour
             isUsingTeleportationMenu = true;
             teleportationMenu.SetActive(true);
             hopeManager.RestoreAllHope();
+
+           // sfxs.clip = teleportSFX;
+           // sfxs.Play();
         }
 
         if (isInCampfireRange3 == true && flameLinked3 == false && hasLitTorch == true)
@@ -336,6 +362,9 @@ public class playerControls : MonoBehaviour
             increaseHope = true;
             decreaseHope = false;
             northernCell.SetActive(true);
+
+            sfxs.clip = startFireSFX;
+            sfxs.Play();
         }
 
         //teleport to northen cell
@@ -344,6 +373,9 @@ public class playerControls : MonoBehaviour
             isUsingTeleportationMenu = true;
             teleportationMenu.SetActive(true);
             hopeManager.RestoreAllHope();
+
+           // sfxs.clip = teleportSFX;
+           // sfxs.Play();
         }
 
         if (isInCampfireRange4 == true && flameLinked4 == false && hasLitTorch == true)
@@ -357,6 +389,9 @@ public class playerControls : MonoBehaviour
             StartCoroutine(FlameLinkedText());
             increaseHope = true;
             decreaseHope = false;
+
+            sfxs.clip = startFireSFX;
+            sfxs.Play();
         }
 
         
@@ -374,6 +409,9 @@ public class playerControls : MonoBehaviour
             decreaseHope = false;
             southernCell.SetActive(true);
 
+            sfxs.clip = startFireSFX;
+            sfxs.Play();
+
         }
 
         //teleport to southern cell
@@ -382,6 +420,9 @@ public class playerControls : MonoBehaviour
             isUsingTeleportationMenu = true;
             teleportationMenu.SetActive(true);
             hopeManager.RestoreAllHope();
+
+            //sfxs.clip = teleportSFX;
+            //sfxs.Play();
         }
 
         if (isInFuelRange == true)
@@ -391,6 +432,9 @@ public class playerControls : MonoBehaviour
             fuelManager.addFuel();
             pickUpFuelText.SetActive(false);
             isInFuelRange = false;
+
+            sfxs.clip = pickUpSFX;
+            sfxs.Play();
         }
 
         if (isInFuelRange1 == true)
@@ -400,6 +444,9 @@ public class playerControls : MonoBehaviour
             fuelManager.addFuel();
             pickUpFuelText.SetActive(false);
             isInFuelRange1 = false;
+
+            sfxs.clip = pickUpSFX;
+            sfxs.Play();
         }
 
         if (isInFuelRange2 == true)
@@ -409,6 +456,9 @@ public class playerControls : MonoBehaviour
             fuelManager.addFuel();
             pickUpFuelText.SetActive(false);
             isInFuelRange2 = false;
+
+            sfxs.clip = pickUpSFX;
+            sfxs.Play();
         }
 
         if (isInFuelRange3 == true)
@@ -418,6 +468,9 @@ public class playerControls : MonoBehaviour
             fuelManager.addFuel();
             pickUpFuelText.SetActive(false);
             isInFuelRange3 = false;
+
+            sfxs.clip = pickUpSFX;
+            sfxs.Play();
         }
 
         if (isInFuelRange4 == true)
@@ -427,6 +480,9 @@ public class playerControls : MonoBehaviour
             fuelManager.addFuel();
             pickUpFuelText.SetActive(false);
             isInFuelRange4 = false;
+
+            sfxs.clip = pickUpSFX;
+            sfxs.Play();
         }
 
         if (isInGreenGateRange == true && hasGreenKey == true)
@@ -435,6 +491,9 @@ public class playerControls : MonoBehaviour
             Destroy(greenGate);
             isInGreenGateRange = false;
             openGateText.SetActive(false);
+
+            sfxs.clip = gateOpeningSFX;
+            sfxs.Play();
         }
 
         if(isInGreenKeyRange == true)
@@ -445,6 +504,9 @@ public class playerControls : MonoBehaviour
             pickupKeyText.SetActive(false);
             greenKeyPic.SetActive(true );
             isInGreenKeyRange = false;
+
+            sfxs.clip = pickUpSFX;
+            sfxs.Play();
         }
 
         if (isInGreenGateRange == true && hasGreenKey == false)
@@ -453,6 +515,9 @@ public class playerControls : MonoBehaviour
             isInGreenGateRange = false;
             openGateText.SetActive(false);
             StartCoroutine(NeedKey());
+
+            sfxs.clip = gateLockedSFX;
+            sfxs.Play();
         }
 
         if (isInBlueGateRange == true && hasBlueKey == true)
@@ -461,6 +526,9 @@ public class playerControls : MonoBehaviour
             Destroy(blueGate);
             isInBlueGateRange = false;
             openGateText.SetActive(false);
+
+            sfxs.clip = gateOpeningSFX;
+            sfxs.Play();
         }
 
         if (isInBlueKeyRange == true)
@@ -471,6 +539,9 @@ public class playerControls : MonoBehaviour
             pickupKeyText.SetActive(false);
             blueKeyPic.SetActive(true);
             isInBlueKeyRange = false;
+
+            sfxs.clip = pickUpSFX;
+            sfxs.Play();
         }
 
         if (isInBlueGateRange == true && hasBlueKey == false)
@@ -479,6 +550,9 @@ public class playerControls : MonoBehaviour
             isInBlueGateRange = false;
             openGateText.SetActive(false);
             StartCoroutine(NeedKey());
+
+            sfxs.clip = gateLockedSFX;
+            sfxs.Play();
         }
 
         if (isInRedGateRange == true && hasRedKey == true)
@@ -487,6 +561,9 @@ public class playerControls : MonoBehaviour
             Destroy(redGate);
             isInRedGateRange = false;
             openGateText.SetActive(false);
+
+            sfxs.clip = gateOpeningSFX;
+            sfxs.Play();
         }
 
         if (isInRedKeyRange == true)
@@ -497,6 +574,9 @@ public class playerControls : MonoBehaviour
             pickupKeyText.SetActive(false);
             redKeyPic.SetActive(true);
             isInRedKeyRange = false;
+
+            sfxs.clip = pickUpSFX;
+            sfxs.Play();  
         }
 
         if (isInRedGateRange == true && hasRedKey == false)
@@ -505,6 +585,9 @@ public class playerControls : MonoBehaviour
             isInRedGateRange = false;
             openGateText.SetActive(false);
             StartCoroutine(NeedKey());
+
+            sfxs.clip = gateLockedSFX;
+            sfxs.Play();
         }
     }
 

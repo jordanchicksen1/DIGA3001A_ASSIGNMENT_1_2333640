@@ -33,6 +33,8 @@ public class teleporter : MonoBehaviour
         tpOriginalFlame.SetActive(true);
         characterController.enabled = false;
         player.transform.position = new Vector3(2.9f, 11.89f, -41.95f);
+        playerControls.sfxs.clip = playerControls.teleportSFX;
+        playerControls.sfxs.Play();
         yield return new WaitForSeconds(3f);
         tpOriginalFlame.SetActive(false);
         characterController.enabled = true;
@@ -65,6 +67,8 @@ public class teleporter : MonoBehaviour
         tpAbyss.SetActive(true);
         characterController.enabled = false;
         player.transform.position = new Vector3(-71.25f, 10.48f, -163.55f);
+        playerControls.sfxs.clip = playerControls.teleportSFX;
+        playerControls.sfxs.Play();
         yield return new WaitForSeconds(3f);
         tpAbyss.SetActive(false);
         characterController.enabled = true;
@@ -98,6 +102,8 @@ public class teleporter : MonoBehaviour
         tpEasternCell.SetActive(true);
         characterController.enabled = false;
         player.transform.position = new Vector3(-89f, 24.67f, -92f);
+        playerControls.sfxs.clip = playerControls.teleportSFX;
+        playerControls.sfxs.Play();
         yield return new WaitForSeconds(3f);
         tpEasternCell.SetActive(false);
         characterController.enabled = true;
@@ -130,6 +136,8 @@ public class teleporter : MonoBehaviour
         tpNorthernCell.SetActive(true);
         characterController.enabled = false;
         player.transform.position = new Vector3(7.1f, 17.5f, -140.2f);
+        playerControls.sfxs.clip = playerControls.teleportSFX;
+        playerControls.sfxs.Play();
         yield return new WaitForSeconds(3f);
         tpNorthernCell.SetActive(false) ;
         characterController.enabled = true;
@@ -162,6 +170,8 @@ public class teleporter : MonoBehaviour
         tpSouthernCell.SetActive(true);
         characterController.enabled = false;
         player.transform.position = new Vector3(19.85f, -12.1f, -88.69f);
+        playerControls.sfxs.clip = playerControls.teleportSFX;
+        playerControls.sfxs.Play();
         yield return new WaitForSeconds(3f);
         tpSouthernCell.SetActive(false);
         characterController.enabled = true;
