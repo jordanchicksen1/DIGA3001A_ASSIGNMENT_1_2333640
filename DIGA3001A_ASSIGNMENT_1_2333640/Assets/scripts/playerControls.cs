@@ -137,6 +137,10 @@ public class playerControls : MonoBehaviour
 
     //rock door
     public GameObject rockDoor;
+    public GameObject doorDestination;
+    public float doorSpeed = 5f;
+
+    public Collider rockDoorCollider;
 
     //sfx
     public AudioSource sfxs;
@@ -145,6 +149,7 @@ public class playerControls : MonoBehaviour
     public AudioClip gateOpeningSFX;
     public AudioClip gateLockedSFX;
     public AudioClip teleportSFX;
+    public AudioClip rockFallingSFX;
     private void OnEnable()
     {
 
@@ -183,6 +188,7 @@ public class playerControls : MonoBehaviour
     {
         // Get and store the CharacterController component attached to this GameObject
         _characterController = GetComponent<CharacterController>();
+        
     }
 
         private void Update()
@@ -277,7 +283,7 @@ public class playerControls : MonoBehaviour
             increaseHope = true;
             decreaseHope = false;
             hopeUI.SetActive(true);
-            Destroy(rockDoor);
+           // Destroy(rockDoor);
 
             sfxs.clip = startFireSFX;
             sfxs.Play();
@@ -422,7 +428,7 @@ public class playerControls : MonoBehaviour
             hopeManager.RestoreAllHope();
 
             //sfxs.clip = teleportSFX;
-            //sfxs.Play();
+            // sfxs.Play();
         }
 
         if (isInFuelRange == true)
@@ -779,6 +785,14 @@ public class playerControls : MonoBehaviour
         {
             StartCoroutine(Killbox());
             Debug.Log("should've teleported player");
+        }
+
+        if(other.tag == "DoorTrigger" && hasLitTorch == true)
+        {
+            rockDoorCollider.enabled = false;
+            Destroy(rockDoor, 20f);
+            sfxs.clip = rockFallingSFX;
+            sfxs.Play();
         }
     }
 

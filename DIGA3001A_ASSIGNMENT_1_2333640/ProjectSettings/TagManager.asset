@@ -27,6 +27,7 @@ TagManager:
   - RedKeyTrigger
   - Fuel4
   - FuelTrigger4
+  - DoorTrigger
   layers:
   - Default
   - TransparentFX
