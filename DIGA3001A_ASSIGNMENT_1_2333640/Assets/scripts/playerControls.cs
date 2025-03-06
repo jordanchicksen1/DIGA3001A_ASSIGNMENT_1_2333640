@@ -265,10 +265,12 @@ public class playerControls : MonoBehaviour
 
     private void UseFuel()
     {
-        Debug.Log("do the thing");
-        fuelManager.subtractFuel();
-        hopeManager.UseFuel();
-
+        if(fuelManager.fuel > 0.99)
+        {
+            Debug.Log("do the thing");
+            fuelManager.subtractFuel();
+            hopeManager.UseFuel();
+        }
     }
 
     private void LightFire()
