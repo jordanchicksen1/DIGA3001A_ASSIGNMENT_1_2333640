@@ -142,6 +142,8 @@ public class playerControls : MonoBehaviour
 
     public Collider rockDoorCollider;
 
+    public GameObject invisibleDoor;
+
     //sfx
     public AudioSource sfxs;
     public AudioClip startFireSFX;
@@ -150,6 +152,14 @@ public class playerControls : MonoBehaviour
     public AudioClip gateLockedSFX;
     public AudioClip teleportSFX;
     public AudioClip rockFallingSFX;
+
+    //location text
+    public GameObject originalFlameText;
+    public GameObject easternCellText;
+    public GameObject southernCellText;
+    public GameObject northernCellText;
+    public GameObject theAbyssText;
+
     private void OnEnable()
     {
 
@@ -265,7 +275,7 @@ public class playerControls : MonoBehaviour
 
     private void UseFuel()
     {
-        if(fuelManager.fuel > 0.99)
+        if(fuelManager.fuel > 0.99 && hopeManager.currentHope < 100)
         {
             Debug.Log("do the thing");
             fuelManager.subtractFuel();
@@ -610,6 +620,12 @@ public class playerControls : MonoBehaviour
         {
             isInCampfireRange1 = true;
             linkFlameText.SetActive(true);
+            
+            easternCellText.SetActive(true);
+            northernCellText.SetActive(false);
+            southernCellText.SetActive(false);
+            theAbyssText.SetActive(false);
+            originalFlameText.SetActive(false);
         }
 
         if(other.tag == "Campfire1" && flameLinked1 == true)
@@ -618,6 +634,12 @@ public class playerControls : MonoBehaviour
             decreaseHope = false;
             isInCampfireRange1 = true;
             sitText.SetActive(true);
+
+            easternCellText.SetActive(true);
+            northernCellText.SetActive(false);
+            southernCellText.SetActive(false);
+            theAbyssText.SetActive(false);
+            originalFlameText.SetActive(false);
         }
         
 
@@ -627,6 +649,12 @@ public class playerControls : MonoBehaviour
             isInOriginalFlameRange = true;
             lightTorchWords.SetActive(true);
             Debug.Log("hello");
+            
+            originalFlameText.SetActive(true);
+            northernCellText.SetActive(false);
+            southernCellText.SetActive(false);
+            theAbyssText.SetActive(false);
+            easternCellText.SetActive(false);
         }
 
         if (other.tag == "OriginalFlame" && hasLitTorch == true)
@@ -635,6 +663,12 @@ public class playerControls : MonoBehaviour
             decreaseHope = false;
             isInOriginalFlameRange = true;
             sitText.SetActive(true);
+
+            originalFlameText.SetActive(true);
+            northernCellText.SetActive(false);
+            southernCellText.SetActive(false);
+            theAbyssText.SetActive(false);
+            easternCellText.SetActive(false);
         }
 
 
@@ -642,7 +676,14 @@ public class playerControls : MonoBehaviour
         {
             isInCampfireRange2 = true;
             linkFlameText.SetActive(true);
-           
+
+            originalFlameText.SetActive(false);
+            northernCellText.SetActive(false);
+            southernCellText.SetActive(false);
+            theAbyssText.SetActive(true);
+            easternCellText.SetActive(false);
+
+
         }
         
         if (other.tag == "Campfire2" && flameLinked2 == true)
@@ -652,6 +693,12 @@ public class playerControls : MonoBehaviour
             isInCampfireRange2 = true;
             sitText.SetActive(true);
 
+            originalFlameText.SetActive(false);
+            northernCellText.SetActive(false);
+            southernCellText.SetActive(false);
+            theAbyssText.SetActive(true);
+            easternCellText.SetActive(false);
+
         }
 
 
@@ -659,7 +706,12 @@ public class playerControls : MonoBehaviour
         {
             isInCampfireRange3 = true;
             linkFlameText.SetActive(true);
-           
+
+            originalFlameText.SetActive(false);
+            northernCellText.SetActive(true);
+            southernCellText.SetActive(false);
+            theAbyssText.SetActive(false);
+            easternCellText.SetActive(false);
         }
 
         if (other.tag == "Campfire3" && flameLinked3 == true)
@@ -668,6 +720,12 @@ public class playerControls : MonoBehaviour
             decreaseHope = false;
             isInCampfireRange3 = true;
             sitText.SetActive(true);
+
+            originalFlameText.SetActive(false);
+            northernCellText.SetActive(true);
+            southernCellText.SetActive(false);
+            theAbyssText.SetActive(false);
+            easternCellText.SetActive(false);
         }
 
         if (other.tag == "Campfire4" && flameLinked4 == false && hasLitTorch == true)
@@ -689,7 +747,13 @@ public class playerControls : MonoBehaviour
         {
             isInCampfireRange5 = true;
             linkFlameText.SetActive(true);
-            
+
+            originalFlameText.SetActive(false);
+            northernCellText.SetActive(false);
+            southernCellText.SetActive(true);
+            theAbyssText.SetActive(false);
+            easternCellText.SetActive(false);
+
         }
 
         if (other.tag == "Campfire5" && flameLinked5 == true)
@@ -698,6 +762,12 @@ public class playerControls : MonoBehaviour
             decreaseHope = false;
             isInCampfireRange5 = true;
             sitText.SetActive(true);
+
+            originalFlameText.SetActive(false);
+            northernCellText.SetActive(false);
+            southernCellText.SetActive(true);
+            theAbyssText.SetActive(false);
+            easternCellText.SetActive(false);
         }
 
         if(other.tag == "FuelTrigger" && isInFuelRange == false)
@@ -793,6 +863,7 @@ public class playerControls : MonoBehaviour
         {
             rockDoorCollider.enabled = false;
             Destroy(rockDoor, 20f);
+            Destroy(invisibleDoor, 3.3f);
             sfxs.clip = rockFallingSFX;
             sfxs.Play();
         }
@@ -809,6 +880,11 @@ public class playerControls : MonoBehaviour
             decreaseHope = true;
             increaseHope = false;
 
+            originalFlameText.SetActive(false);
+            northernCellText.SetActive(false);
+            southernCellText.SetActive(false);
+            theAbyssText.SetActive(false);
+            easternCellText.SetActive(false);
         }
 
         if (other.tag == "OriginalFlame" && hasLitTorch == false)
@@ -816,6 +892,12 @@ public class playerControls : MonoBehaviour
             isInOriginalFlameRange = false;
             lightTorchWords.SetActive(false);
             Debug.Log("text shouldn't show");
+
+            originalFlameText.SetActive(false);
+            northernCellText.SetActive(false);
+            southernCellText.SetActive(false);
+            theAbyssText.SetActive(false);
+            easternCellText.SetActive(false);
         }
 
         if (other.tag == "Campfire1" && flameLinked1 == true)
@@ -826,6 +908,12 @@ public class playerControls : MonoBehaviour
             Debug.Log("text shouldn't show");
             decreaseHope = true;
             increaseHope = false;
+
+            originalFlameText.SetActive(false);
+            northernCellText.SetActive(false);
+            southernCellText.SetActive(false);
+            theAbyssText.SetActive(false);
+            easternCellText.SetActive(false);
         }
 
         if (other.tag == "Campfire1" && flameLinked1 == false)
@@ -833,7 +921,13 @@ public class playerControls : MonoBehaviour
             isInCampfireRange1 = false;
             linkFlameText.SetActive(false);
             Debug.Log("text shouldn't show");
-           
+
+            originalFlameText.SetActive(false);
+            northernCellText.SetActive(false);
+            southernCellText.SetActive(false);
+            theAbyssText.SetActive(false);
+            easternCellText.SetActive(false);
+
         }
 
         if (other.tag == "Campfire2" && flameLinked2 == true)
@@ -844,6 +938,12 @@ public class playerControls : MonoBehaviour
             Debug.Log("text shouldn't show");
             decreaseHope = true;
             increaseHope = false;
+
+            originalFlameText.SetActive(false);
+            northernCellText.SetActive(false);
+            southernCellText.SetActive(false);
+            theAbyssText.SetActive(false);
+            easternCellText.SetActive(false);
         }
 
         if (other.tag == "Campfire2" && flameLinked2 == false)
@@ -851,6 +951,12 @@ public class playerControls : MonoBehaviour
             isInCampfireRange2 = false;
             linkFlameText.SetActive(false);
             Debug.Log("text shouldn't show");
+
+            originalFlameText.SetActive(false);
+            northernCellText.SetActive(false);
+            southernCellText.SetActive(false);
+            theAbyssText.SetActive(false);
+            easternCellText.SetActive(false);
         }
 
         if (other.tag == "Campfire3" && flameLinked3 == true)
@@ -861,6 +967,12 @@ public class playerControls : MonoBehaviour
             Debug.Log("text shouldn't show");
             decreaseHope = true;
             increaseHope = false;
+
+            originalFlameText.SetActive(false);
+            northernCellText.SetActive(false);
+            southernCellText.SetActive(false);
+            theAbyssText.SetActive(false);
+            easternCellText.SetActive(false);
         }
 
         if (other.tag == "Campfire3" && flameLinked3 == false)
@@ -868,7 +980,12 @@ public class playerControls : MonoBehaviour
             isInCampfireRange3 = false;
             linkFlameText.SetActive(false);
             Debug.Log("text shouldn't show");
-           
+
+            originalFlameText.SetActive(false);
+            northernCellText.SetActive(false);
+            southernCellText.SetActive(false);
+            theAbyssText.SetActive(false);
+            easternCellText.SetActive(false);
         }
 
         if (other.tag == "Campfire4" && flameLinked4 == true)
@@ -897,6 +1014,12 @@ public class playerControls : MonoBehaviour
             Debug.Log("text shouldn't show");
             decreaseHope = true;
             increaseHope = false;
+
+            originalFlameText.SetActive(false);
+            northernCellText.SetActive(false);
+            southernCellText.SetActive(false);
+            theAbyssText.SetActive(false);
+            easternCellText.SetActive(false);
         }
 
         if (other.tag == "Campfire5" && flameLinked5 == false)
@@ -904,7 +1027,13 @@ public class playerControls : MonoBehaviour
             isInCampfireRange5 = false;
             linkFlameText.SetActive(false);
             Debug.Log("text shouldn't show");
-            
+
+            originalFlameText.SetActive(false);
+            northernCellText.SetActive(false);
+            southernCellText.SetActive(false);
+            theAbyssText.SetActive(false);
+            easternCellText.SetActive(false);
+
         }
 
         if (other.tag == "FuelTrigger" && isInFuelRange == true)

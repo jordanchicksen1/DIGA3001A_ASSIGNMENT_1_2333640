@@ -56,7 +56,7 @@ public class hopeManager : MonoBehaviour
 
     public void Update()
     {
-        if(playerControls.decreaseHope == true)
+        if(playerControls.decreaseHope == true && currentHope > 0)
         {
             currentHope -= Time.deltaTime;
             updateHopeBar();
@@ -67,7 +67,7 @@ public class hopeManager : MonoBehaviour
             }
         }
 
-        if(playerControls.increaseHope == true) 
+        if(playerControls.increaseHope == true && currentHope < 100) 
         { 
             currentHope += Time.deltaTime;
             updateHopeBar();
