@@ -78,6 +78,7 @@ public class playerControls : MonoBehaviour
     public bool isInFuelRange3 = false;
     public bool isInFuelRange4 = false;
     public fuelManager fuelManager;
+    public ParticleSystem usedFuel;
 
     public GameObject fuel;
     public GameObject fuel1;
@@ -152,6 +153,7 @@ public class playerControls : MonoBehaviour
     public AudioClip gateLockedSFX;
     public AudioClip teleportSFX;
     public AudioClip rockFallingSFX;
+    public AudioClip fuelSFX;
 
     //location text
     public GameObject originalFlameText;
@@ -280,6 +282,9 @@ public class playerControls : MonoBehaviour
             Debug.Log("do the thing");
             fuelManager.subtractFuel();
             hopeManager.UseFuel();
+            sfxs.clip = fuelSFX;
+            sfxs.Play();
+            usedFuel.Play();
         }
     }
 
