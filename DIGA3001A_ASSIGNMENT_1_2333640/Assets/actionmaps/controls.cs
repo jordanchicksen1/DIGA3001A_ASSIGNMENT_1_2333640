@@ -80,6 +80,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""70d102b6-d571-41db-9f11-35d3a64352d9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -229,7 +238,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""14fe9047-80ed-4fdb-a608-78b149ce5622"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -269,6 +278,28 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""UseFuel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7db338a1-871b-424f-9731-a3699de4f040"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a3c8a077-00c2-49bb-bfd2-c0e0c79ed1fe"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -306,6 +337,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_LightFire = m_Player.FindAction("LightFire", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_UseFuel = m_Player.FindAction("UseFuel", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -373,6 +405,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_LightFire;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_UseFuel;
+    private readonly InputAction m_Player_Pause;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -383,6 +416,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @LightFire => m_Wrapper.m_Player_LightFire;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @UseFuel => m_Wrapper.m_Player_UseFuel;
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -410,6 +444,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @UseFuel.started += instance.OnUseFuel;
             @UseFuel.performed += instance.OnUseFuel;
             @UseFuel.canceled += instance.OnUseFuel;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -432,6 +469,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @UseFuel.started -= instance.OnUseFuel;
             @UseFuel.performed -= instance.OnUseFuel;
             @UseFuel.canceled -= instance.OnUseFuel;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -475,5 +515,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnLightFire(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnUseFuel(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

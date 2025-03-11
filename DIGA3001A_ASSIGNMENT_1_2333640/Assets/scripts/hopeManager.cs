@@ -40,7 +40,9 @@ public class hopeManager : MonoBehaviour
     
     public void EnemyAttack()
     {
-
+        currentHope = currentHope - 5f;
+        Light.intensity = Light.intensity - 5f;
+        updateHopeBar();
     }
     public void updateHope(float amount)
     {
@@ -90,6 +92,11 @@ public class hopeManager : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("Start");
     }
 
     public void CheckHope()

@@ -11,7 +11,7 @@ public class playerControls : MonoBehaviour
     [Space(5)]
 
     // Public variables to set movement and look speed, and the player camera
-    public float moveSpeed; // Speed at which the player moves
+    public float moveSpeed = 8f; // Speed at which the player moves
     public float lookSpeed; // Sensitivity of the camera movement
     public float gravity = -9.81f; // Gravity value
     public float jumpHeight = 1.0f; // Height of the jump
@@ -162,6 +162,18 @@ public class playerControls : MonoBehaviour
     public GameObject northernCellText;
     public GameObject theAbyssText;
 
+    //pause screen stuff
+    public GameObject pauseScreen;
+    public bool isPaused = false;
+
+    //dash stuff
+    public bool canDash = true;
+    public float dashSpeed = 1.0f;
+
+    //enemies
+    public GameObject enemy;
+    public bool isInEnemyRange;
+    public float enemySpeed = 8f;
     private void OnEnable()
     {
 
@@ -194,6 +206,8 @@ public class playerControls : MonoBehaviour
         //Subscribe to the UseFuel
         playerInput.Player.UseFuel.performed += ctx => UseFuel(); // use fuel
 
+        //Subscribe to the pause
+        playerInput.Player.Pause.performed += ctx => Pause(); // use fuel
     }
 
     private void Awake()
@@ -213,7 +227,7 @@ public class playerControls : MonoBehaviour
 
     private void Move()
     {
-        if( isUsingTeleportationMenu == false)
+        if( isUsingTeleportationMenu == false && isPaused == false)
         {
             // Create a movement vector based on the input
             Vector3 move = new Vector3(_moveInput.x, 0, _moveInput.y);
@@ -232,7 +246,7 @@ public class playerControls : MonoBehaviour
 
     private void LookAround()
     {
-       if ( isUsingTeleportationMenu == false)
+       if ( isUsingTeleportationMenu == false && isPaused == false)
         {
             // Get horizontal and vertical look inputs and adjust based on sensitivity
             var lookX = _lookInput.x * lookSpeed;
@@ -252,6 +266,25 @@ public class playerControls : MonoBehaviour
         
     }
 
+    private void Pause()
+    {
+        if(isPaused == false)
+        {
+            isPaused = true;
+            pauseScreen.SetActive(true);
+            Time.timeScale = 0;
+            Debug.Log("should pause");
+        }
+
+        else if(isPaused == true)
+        {
+            isPaused = false;
+            pauseScreen.SetActive(false);
+            Time.timeScale = 1;
+            Debug.Log("should unpaused");
+        }
+    }
+
     private void ApplyGravity()
     {
         if (_characterController.isGrounded && _velocity.y < 0)
@@ -266,7 +299,7 @@ public class playerControls : MonoBehaviour
     private void Jump()
     {
 
-        if (_characterController.isGrounded && isUsingTeleportationMenu == false)
+        if (_characterController.isGrounded && isUsingTeleportationMenu == false && isPaused == false)
         {
             // Calculate the jump velocity
             _velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
@@ -277,7 +310,7 @@ public class playerControls : MonoBehaviour
 
     private void UseFuel()
     {
-        if(fuelManager.fuel > 0.99 && hopeManager.currentHope < 100)
+        if(fuelManager.fuel > 0.99 && hopeManager.currentHope < 100 && isPaused == false)
         {
             Debug.Log("do the thing");
             fuelManager.subtractFuel();
@@ -616,7 +649,13 @@ public class playerControls : MonoBehaviour
 
     private void Sprint()
     {
-        Debug.Log("should sprint");
+        if(canDash == true)
+        {
+            Debug.Log("should sprint");
+            StartCoroutine(TheDash());
+        }
+       
+
     }
 
     public void OnTriggerEnter(Collider other)
@@ -871,6 +910,11 @@ public class playerControls : MonoBehaviour
             Destroy(invisibleDoor, 3.3f);
             sfxs.clip = rockFallingSFX;
             sfxs.Play();
+        }
+
+        if(other.tag == "Enemy")
+        {
+            hopeManager.EnemyAttack();
         }
     }
 
@@ -1130,6 +1174,15 @@ public class playerControls : MonoBehaviour
         
     }
 
+    public void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "EnemyTrigger")
+        {
+            enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, this.transform.position, enemySpeed* Time.deltaTime);
+            Debug.Log("is in enemy trigger");
+        }
+    }
+
     private IEnumerator StopText()
     {
         yield return new WaitForSeconds(2f);
@@ -1213,5 +1266,16 @@ public class playerControls : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         flameLinked5 = true;
         Debug.Log("it should've turned the bool on");
+    }
+
+    private IEnumerator TheDash()
+    {
+        yield return new WaitForSeconds(0f);
+        canDash = false;
+        moveSpeed = moveSpeed + 8f;
+        yield return new WaitForSeconds(0.3f);
+        moveSpeed = moveSpeed - 8f;
+        yield return new WaitForSeconds(2f);
+        canDash = true;
     }
 }

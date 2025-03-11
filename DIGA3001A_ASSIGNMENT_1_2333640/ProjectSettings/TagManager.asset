@@ -28,6 +28,8 @@ TagManager:
   - Fuel4
   - FuelTrigger4
   - DoorTrigger
+  - EnemyTrigger
+  - Enemy
   layers:
   - Default
   - TransparentFX

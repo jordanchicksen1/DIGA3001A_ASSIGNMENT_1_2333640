@@ -8,6 +8,7 @@ public class flintManager : MonoBehaviour
 {
     public int flint;
     public TextMeshProUGUI flintText;
+    public GameObject gameFinished;
 
     [ContextMenu("Increase Flint")]
     public void addFlint()
@@ -21,5 +22,21 @@ public class flintManager : MonoBehaviour
     {
         flint = flint - 1;
         flintText.text = flint.ToString();
+    }
+
+    public void Update()
+    {
+        if(flint == 4)
+        {
+            StartCoroutine(EndGame());
+            Debug.Log("it should end the game");
+        }
+    }
+
+    public IEnumerator EndGame()
+    {
+        yield return new WaitForSeconds(2f);
+        Time.timeScale = 0f;
+        gameFinished.SetActive(true);
     }
 }
