@@ -40,8 +40,8 @@ public class hopeManager : MonoBehaviour
     
     public void EnemyAttack()
     {
-        currentHope = currentHope - 5f;
-        Light.intensity = Light.intensity - 5f;
+        currentHope = currentHope - 2f;
+        Light.intensity = Light.intensity - 2f;
         updateHopeBar();
     }
     public void updateHope(float amount)

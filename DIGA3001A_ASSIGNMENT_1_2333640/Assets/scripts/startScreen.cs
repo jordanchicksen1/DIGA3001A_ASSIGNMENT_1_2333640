@@ -23,6 +23,13 @@ public class startScreen : MonoBehaviour
 
     public GameObject text4;
     public GameObject next4;
+
+    public AudioSource backgroundMusic;
+
+    public void Awake()
+    {
+        StartCoroutine(Music());
+    }
     public void StartButton()
     {
         title.SetActive(false);
@@ -101,5 +108,13 @@ public class startScreen : MonoBehaviour
         yield return new WaitForSeconds(5f);
         text1.SetActive(true);
         StartCoroutine(Next1Button());
+    }
+
+    public IEnumerator Music()
+    {
+        yield return new WaitForSeconds(0f);
+        backgroundMusic.Stop();
+        yield return new WaitForSeconds(0.1f);
+        backgroundMusic.Play();
     }
 }

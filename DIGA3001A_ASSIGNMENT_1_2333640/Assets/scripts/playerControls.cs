@@ -31,7 +31,7 @@ public class playerControls : MonoBehaviour
     public float crouchSpeed = 1.5f; //short speed
     public bool isCrouching = false; //if short or normal
 
-
+    public Rigidbody rb;
    
     public bool isInFlintRange = false;
 
@@ -77,6 +77,8 @@ public class playerControls : MonoBehaviour
     public bool isInFuelRange2 = false;
     public bool isInFuelRange3 = false;
     public bool isInFuelRange4 = false;
+    public bool isInFuelRange5 = false;
+    public bool isInFuelRange6 = false;
     public fuelManager fuelManager;
     public ParticleSystem usedFuel;
 
@@ -85,6 +87,8 @@ public class playerControls : MonoBehaviour
     public GameObject fuel2;
     public GameObject fuel3;
     public GameObject fuel4;
+    public GameObject fuel5;
+    public GameObject fuel6;
 
     //hope
     public hopeManager hopeManager;
@@ -171,9 +175,16 @@ public class playerControls : MonoBehaviour
     public float dashSpeed = 1.0f;
 
     //enemies
+    public bool isBeingChased = false;
+    //public Vector3 enemyForce = new Vector3(50f, 50f, 0);
+    public GameObject redBar;
+
     public GameObject enemy;
     public bool isInEnemyRange;
     public float enemySpeed = 8f;
+    public Transform pointA;
+
+
     private void OnEnable()
     {
 
@@ -223,6 +234,22 @@ public class playerControls : MonoBehaviour
         Move();
         LookAround();
         ApplyGravity();
+        CheckBeingChased();
+    }
+
+    public void CheckBeingChased()
+    {
+        if(isBeingChased == true)
+        {
+            enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, this.transform.position, enemySpeed * Time.deltaTime);
+            Debug.Log("is in enemy trigger");
+        }
+
+        if(isBeingChased == false)
+        {
+            enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, pointA.transform.position, enemySpeed * Time.deltaTime);
+            Debug.Log("is not in enemy trigger");
+        }
     }
 
     private void Move()
@@ -541,6 +568,30 @@ public class playerControls : MonoBehaviour
             sfxs.Play();
         }
 
+        if (isInFuelRange5 == true)
+        {
+            Debug.Log("pick up fuel");
+            Destroy(fuel5);
+            fuelManager.addFuel();
+            pickUpFuelText.SetActive(false);
+            isInFuelRange5 = false;
+
+            sfxs.clip = pickUpSFX;
+            sfxs.Play();
+        }
+
+        if (isInFuelRange6 == true)
+        {
+            Debug.Log("pick up fuel");
+            Destroy(fuel6);
+            fuelManager.addFuel();
+            pickUpFuelText.SetActive(false);
+            isInFuelRange6 = false;
+
+            sfxs.clip = pickUpSFX;
+            sfxs.Play();
+        }
+
         if (isInGreenGateRange == true && hasGreenKey == true)
         {
             Debug.Log("open gate");
@@ -849,6 +900,27 @@ public class playerControls : MonoBehaviour
             Debug.Log("show fuel text");
         }
 
+        if (other.tag == "FuelTrigger4" && isInFuelRange4 == false)
+        {
+            isInFuelRange4 = true;
+            pickUpFuelText.SetActive(true);
+            Debug.Log("show fuel text");
+        }
+
+        if (other.tag == "FuelTrigger5" && isInFuelRange5 == false)
+        {
+            isInFuelRange5 = true;
+            pickUpFuelText.SetActive(true);
+            Debug.Log("show fuel text");
+        }
+
+        if (other.tag == "FuelTrigger6" && isInFuelRange6 == false)
+        {
+            isInFuelRange6 = true;
+            pickUpFuelText.SetActive(true);
+            Debug.Log("show fuel text");
+        }
+
         if (other.tag == "GreenGateTrigger" && isInGreenGateRange == false)
         {
             openGateText.SetActive(true);
@@ -915,6 +987,7 @@ public class playerControls : MonoBehaviour
         if(other.tag == "Enemy")
         {
             hopeManager.EnemyAttack();
+            StartCoroutine(GettingHit());
         }
     }
 
@@ -1120,6 +1193,20 @@ public class playerControls : MonoBehaviour
             Debug.Log("fuel text should go away");
         }
 
+        if (other.tag == "FuelTrigger5" && isInFuelRange5 == true)
+        {
+            pickUpFuelText.SetActive(false);
+            isInFuelRange5 = false;
+            Debug.Log("fuel text should go away");
+        }
+
+        if (other.tag == "FuelTrigger6" && isInFuelRange6 == true)
+        {
+            pickUpFuelText.SetActive(false);
+            isInFuelRange6 = false;
+            Debug.Log("fuel text should go away");
+        }
+
         if (other.tag == "GreenGateTrigger" && isInGreenGateRange == true)
         {
             openGateText.SetActive(false);
@@ -1171,16 +1258,23 @@ public class playerControls : MonoBehaviour
 
         }
 
-        
+        if (other.tag == "EnemyTrigger")
+        {
+            enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, pointA.transform.position, enemySpeed * Time.deltaTime);
+            Debug.Log("is not in enemy trigger");
+            isBeingChased = false;
+        }
     }
 
     public void OnTriggerStay(Collider other)
     {
         if (other.tag == "EnemyTrigger")
         {
-            enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, this.transform.position, enemySpeed* Time.deltaTime);
-            Debug.Log("is in enemy trigger");
+            
+            isBeingChased = true;
+            
         }
+        
     }
 
     private IEnumerator StopText()
@@ -1277,5 +1371,13 @@ public class playerControls : MonoBehaviour
         moveSpeed = moveSpeed - 8f;
         yield return new WaitForSeconds(2f);
         canDash = true;
+    }
+
+    private IEnumerator GettingHit()
+    {
+        yield return new WaitForSeconds(0f);
+        redBar.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        redBar.SetActive(false);
     }
 }
