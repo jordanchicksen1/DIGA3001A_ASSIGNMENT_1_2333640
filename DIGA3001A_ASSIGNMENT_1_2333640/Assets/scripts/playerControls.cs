@@ -2,7 +2,6 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.ExceptionServices;
-using UnityEditor.ShaderGraph;
 using UnityEngine;
 
 public class playerControls : MonoBehaviour
@@ -197,6 +196,10 @@ public class playerControls : MonoBehaviour
     public GameObject enemy3;
     public GameObject enemy4;
 
+    public AudioSource ghostSFX;
+    public AudioSource gettingHitSFX;
+    public ParticleSystem hitVFX;
+    public bool canBeHit = true;
 
     private void OnEnable()
     {
@@ -1045,10 +1048,43 @@ public class playerControls : MonoBehaviour
             sfxs.Play();
         }
 
-        if(other.tag == "Enemy")
+        if(other.tag == "Enemy" && canBeHit == true)
         {
             hopeManager.EnemyAttack();
             StartCoroutine(GettingHit());
+            StartCoroutine(IsBeingHit());
+            hitVFX.Play();
+            gettingHitSFX.Play();
+        }
+
+        if (other.tag == "EnemyTrigger")
+        {
+
+            ghostSFX.Play();
+        }
+
+        if (other.tag == "EnemyTrigger1")
+        {
+
+            ghostSFX.Play();
+        }
+
+        if (other.tag == "EnemyTrigger2")
+        {
+
+            ghostSFX.Play();
+        }
+
+        if (other.tag == "EnemyTrigger3")
+        {
+
+            ghostSFX.Play();
+        }
+
+        if (other.tag == "EnemyTrigger4")
+        {
+
+            ghostSFX.Play();
         }
     }
 
@@ -1491,5 +1527,13 @@ public class playerControls : MonoBehaviour
         redBar.SetActive(true);
         yield return new WaitForSeconds(0.2f);
         redBar.SetActive(false);
+    }
+
+    private IEnumerator IsBeingHit()
+    {
+        yield return new WaitForSeconds(0f);
+        canBeHit = false;
+        yield return new WaitForSeconds(1.5f);
+        canBeHit = true;
     }
 }
