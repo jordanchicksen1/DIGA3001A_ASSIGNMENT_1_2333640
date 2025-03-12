@@ -34,6 +34,14 @@ TagManager:
   - Fuel5
   - FuelTrigger6
   - Fuel6
+  - Enemy1
+  - EnemyTrigger1
+  - Enemy2
+  - EnemyTrigger2
+  - Enemy3
+  - EnemyTrigger3
+  - Enemy4
+  - EnemyTrigger4
   layers:
   - Default
   - TransparentFX

@@ -176,13 +176,26 @@ public class playerControls : MonoBehaviour
 
     //enemies
     public bool isBeingChased = false;
+    public bool isBeingChased1 = false;
+    public bool isBeingChased2 = false;
+    public bool isBeingChased3 = false;
+    public bool isBeingChased4 = false;
     //public Vector3 enemyForce = new Vector3(50f, 50f, 0);
     public GameObject redBar;
 
     public GameObject enemy;
-    public bool isInEnemyRange;
     public float enemySpeed = 8f;
+    
     public Transform pointA;
+    public Transform pointB;
+    public Transform pointC;
+    public Transform pointD;
+    public Transform pointE;
+
+    public GameObject enemy1;
+    public GameObject enemy2;
+    public GameObject enemy3;
+    public GameObject enemy4;
 
 
     private void OnEnable()
@@ -248,6 +261,54 @@ public class playerControls : MonoBehaviour
         if(isBeingChased == false)
         {
             enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, pointA.transform.position, enemySpeed * Time.deltaTime);
+            Debug.Log("is not in enemy trigger");
+        }
+
+        if (isBeingChased1 == true)
+        {
+            enemy1.transform.position = Vector3.MoveTowards(enemy1.transform.position, this.transform.position, enemySpeed * Time.deltaTime);
+            Debug.Log("is in enemy trigger");
+        }
+
+        if (isBeingChased1 == false)
+        {
+            enemy1.transform.position = Vector3.MoveTowards(enemy1.transform.position, pointB.transform.position, enemySpeed * Time.deltaTime);
+            Debug.Log("is not in enemy trigger");
+        }
+
+        if (isBeingChased2 == true)
+        {
+            enemy2.transform.position = Vector3.MoveTowards(enemy2.transform.position, this.transform.position, enemySpeed * Time.deltaTime);
+            Debug.Log("is in enemy trigger");
+        }
+
+        if (isBeingChased2 == false)
+        {
+            enemy2.transform.position = Vector3.MoveTowards(enemy2.transform.position, pointC.transform.position, enemySpeed * Time.deltaTime);
+            Debug.Log("is not in enemy trigger");
+        }
+
+        if (isBeingChased3 == true)
+        {
+            enemy3.transform.position = Vector3.MoveTowards(enemy3.transform.position, this.transform.position, enemySpeed * Time.deltaTime);
+            Debug.Log("is in enemy trigger");
+        }
+
+        if (isBeingChased3 == false)
+        {
+            enemy3.transform.position = Vector3.MoveTowards(enemy3.transform.position, pointD.transform.position, enemySpeed * Time.deltaTime);
+            Debug.Log("is not in enemy trigger");
+        }
+
+        if (isBeingChased4 == true)
+        {
+            enemy4.transform.position = Vector3.MoveTowards(enemy4.transform.position, this.transform.position, enemySpeed * Time.deltaTime);
+            Debug.Log("is in enemy trigger");
+        }
+
+        if (isBeingChased4 == false)
+        {
+            enemy4.transform.position = Vector3.MoveTowards(enemy4.transform.position, pointE.transform.position, enemySpeed * Time.deltaTime);
             Debug.Log("is not in enemy trigger");
         }
     }
@@ -1260,9 +1321,32 @@ public class playerControls : MonoBehaviour
 
         if (other.tag == "EnemyTrigger")
         {
-            enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, pointA.transform.position, enemySpeed * Time.deltaTime);
-            Debug.Log("is not in enemy trigger");
+            
             isBeingChased = false;
+        }
+
+        if (other.tag == "EnemyTrigger1")
+        {
+
+            isBeingChased1 = false;
+        }
+
+        if (other.tag == "EnemyTrigger2")
+        {
+
+            isBeingChased2 = false;
+        }
+
+        if (other.tag == "EnemyTrigger3")
+        {
+
+            isBeingChased3 = false;
+        }
+
+        if (other.tag == "EnemyTrigger4")
+        {
+
+            isBeingChased4 = false;
         }
     }
 
@@ -1274,7 +1358,35 @@ public class playerControls : MonoBehaviour
             isBeingChased = true;
             
         }
-        
+
+        if (other.tag == "EnemyTrigger1")
+        {
+
+            isBeingChased1 = true;
+
+        }
+
+        if (other.tag == "EnemyTrigger2")
+        {
+
+            isBeingChased2 = true;
+
+        }
+
+        if (other.tag == "EnemyTrigger3")
+        {
+
+            isBeingChased3 = true;
+
+        }
+
+        if (other.tag == "EnemyTrigger4")
+        {
+
+            isBeingChased4 = true;
+
+        }
+
     }
 
     private IEnumerator StopText()
