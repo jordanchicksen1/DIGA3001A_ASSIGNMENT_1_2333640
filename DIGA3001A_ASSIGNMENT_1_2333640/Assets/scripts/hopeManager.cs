@@ -48,6 +48,7 @@ public class hopeManager : MonoBehaviour
     {
         currentHope += amount;
         updateHopeBar();
+        Debug.Log("should decrease");
     }
 
     public void updateHopeBar()
