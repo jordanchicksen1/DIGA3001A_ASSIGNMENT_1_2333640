@@ -201,6 +201,7 @@ public class playerControls : MonoBehaviour
     public ParticleSystem hitVFX;
     public bool canBeHit = true;
 
+    public GameObject pauseText;
     private void OnEnable()
     {
 
@@ -1535,5 +1536,18 @@ public class playerControls : MonoBehaviour
         canBeHit = false;
         yield return new WaitForSeconds(1.5f);
         canBeHit = true;
+    }
+
+    private IEnumerator PressPause()
+    {
+        yield return new WaitForSeconds(0f);
+        pauseText.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        pauseText.SetActive(false);
+    }
+
+    public void Start()
+    {
+        StartCoroutine(PressPause());
     }
 }
