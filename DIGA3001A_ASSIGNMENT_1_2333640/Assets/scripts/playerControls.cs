@@ -202,6 +202,8 @@ public class playerControls : MonoBehaviour
     public bool canBeHit = true;
 
     public GameObject pauseText;
+
+    //private Animator playerAnim;
     private void OnEnable()
     {
 
@@ -242,6 +244,7 @@ public class playerControls : MonoBehaviour
     {
         // Get and store the CharacterController component attached to this GameObject
         _characterController = GetComponent<CharacterController>();
+       // playerAnim = GetComponent<Animator>();
         
     }
 
@@ -331,6 +334,13 @@ public class playerControls : MonoBehaviour
 
             // Move the character controller based on the movement vector and speed
             _characterController.Move(move * currentSpeed * Time.deltaTime);
+
+           // playerAnim.SetBool("idle", false);
+           // playerAnim.SetBool("walk", true);
+        }
+        else
+        {
+           // playerAnim.SetBool("idle", true) ;
         }
             
         
