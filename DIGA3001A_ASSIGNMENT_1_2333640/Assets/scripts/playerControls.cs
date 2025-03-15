@@ -203,6 +203,8 @@ public class playerControls : MonoBehaviour
 
     public GameObject pauseText;
 
+    public animationControl animationControl;
+
     //private Animator playerAnim;
     private void OnEnable()
     {
@@ -335,15 +337,23 @@ public class playerControls : MonoBehaviour
             // Move the character controller based on the movement vector and speed
             _characterController.Move(move * currentSpeed * Time.deltaTime);
 
-           // playerAnim.SetBool("idle", false);
-           // playerAnim.SetBool("walk", true);
+            //animationControl.DoWalkAnimation();
         }
+       
+
+        if (_moveInput.x >0 ||  _moveInput.y >0 || _moveInput.x < 0 || _moveInput.y < 0)
+        {
+            animationControl.DoWalkAnimation();
+        }
+
         else
         {
-           // playerAnim.SetBool("idle", true) ;
+            animationControl.DoIdleAnimation();
         }
-            
-        
+
+
+
+
     }
 
     private void LookAround()
@@ -405,7 +415,9 @@ public class playerControls : MonoBehaviour
         {
             // Calculate the jump velocity
             _velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            animationControl.DoJumpAnimation(); 
         }
+        
             
        
     }
