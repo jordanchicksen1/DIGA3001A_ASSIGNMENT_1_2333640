@@ -14,33 +14,54 @@ public class animationControl : MonoBehaviour
     public void DoJumpAnimation()
     {
         animator.SetBool("jump",true);
-        animator.SetBool("idle", false);
-        animator.SetBool("linkFlame", false);
-        animator.SetBool("walk", false);
+        StartCoroutine(ClearJump());
+        
     }
 
     public void DoWalkAnimation() 
     {
         animator.SetBool("walk", true );
-        animator.SetBool("idle", false);
-        animator.SetBool("linkFlame", false);
-        animator.SetBool("jump", false);
+        StartCoroutine(ClearWalk());
     }
 
     public void DoIdleAnimation()
     {
-        animator.SetBool("walk", false);
+        
         animator.SetBool("idle", true);
-        animator.SetBool("linkFlame", false);
-        animator.SetBool("jump", false);
+        StartCoroutine(ClearIdle());
+    
     }
 
     public void DoLinkFlameAnimation()
     {
-        animator.SetBool("walk", false);
-        animator.SetBool("idle", false);
+        
         animator.SetBool("linkFlame", true);
-        animator.SetBool("jump", false);
+        StartCoroutine(ClearLink());
+        
     }
+
+    public IEnumerator ClearJump() 
+    {
+        yield return new WaitForSeconds(0.8f);
+        animator.SetBool("jump", false );
+    }
+
+    public IEnumerator ClearLink()
+    {
+        yield return new WaitForSeconds(0.5f);
+        animator.SetBool("linkFlame", false);
+    }
+    public IEnumerator ClearWalk()
+    {
+        yield return new WaitForSeconds(0.5f);
+        animator.SetBool("walk", false);
+    }
+
+    public IEnumerator ClearIdle()
+    {
+        yield return new WaitForSeconds(0.5f);
+        animator.SetBool("idle", false);
+    }
+
 
 }

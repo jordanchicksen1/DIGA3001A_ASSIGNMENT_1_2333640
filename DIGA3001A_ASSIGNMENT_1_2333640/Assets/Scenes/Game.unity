@@ -36389,9 +36389,7 @@ MonoBehaviour:
 
     use fuel - q
 
-    dodge - shift
-
-    attack - left click'
+    dodge - shift'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7ce5810630873fd49a8406874768970a, type: 2}
   m_sharedMaterial: {fileID: -7705877457068251523, guid: 7ce5810630873fd49a8406874768970a,

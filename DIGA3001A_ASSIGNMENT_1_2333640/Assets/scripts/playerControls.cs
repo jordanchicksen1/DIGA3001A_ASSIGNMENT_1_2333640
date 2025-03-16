@@ -448,7 +448,7 @@ public class playerControls : MonoBehaviour
             decreaseHope = false;
             hopeUI.SetActive(true);
            // Destroy(rockDoor);
-
+           animationControl.DoLinkFlameAnimation();
             sfxs.clip = startFireSFX;
             sfxs.Play();
         }
@@ -476,7 +476,7 @@ public class playerControls : MonoBehaviour
             increaseHope = true;
             decreaseHope = false;
             easternCell.SetActive(true);
-
+            animationControl.DoLinkFlameAnimation();
             sfxs.clip = startFireSFX;
             sfxs.Play();
         }
@@ -504,7 +504,7 @@ public class playerControls : MonoBehaviour
             increaseHope = true;
             decreaseHope = false;
             theAbyss.SetActive(true);
-
+            animationControl.DoLinkFlameAnimation();
             sfxs.clip = startFireSFX;
             sfxs.Play();
         }
@@ -532,7 +532,7 @@ public class playerControls : MonoBehaviour
             increaseHope = true;
             decreaseHope = false;
             northernCell.SetActive(true);
-
+            animationControl.DoLinkFlameAnimation();
             sfxs.clip = startFireSFX;
             sfxs.Play();
         }
@@ -559,7 +559,7 @@ public class playerControls : MonoBehaviour
             StartCoroutine(FlameLinkedText());
             increaseHope = true;
             decreaseHope = false;
-
+            animationControl.DoLinkFlameAnimation();
             sfxs.clip = startFireSFX;
             sfxs.Play();
         }
@@ -578,7 +578,7 @@ public class playerControls : MonoBehaviour
             increaseHope = true;
             decreaseHope = false;
             southernCell.SetActive(true);
-
+            animationControl.DoLinkFlameAnimation();
             sfxs.clip = startFireSFX;
             sfxs.Play();
 
