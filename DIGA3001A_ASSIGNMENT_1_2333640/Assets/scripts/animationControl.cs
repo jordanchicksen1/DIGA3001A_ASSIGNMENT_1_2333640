@@ -21,14 +21,16 @@ public class animationControl : MonoBehaviour
     public void DoWalkAnimation() 
     {
         animator.SetBool("walk", true );
-        StartCoroutine(ClearWalk());
+        animator.SetBool("idle", false );
+       // StartCoroutine(ClearWalk());
     }
 
     public void DoIdleAnimation()
     {
         
         animator.SetBool("idle", true);
-        StartCoroutine(ClearIdle());
+        animator.SetBool("walk", false);
+       // StartCoroutine(ClearIdle());
     
     }
 

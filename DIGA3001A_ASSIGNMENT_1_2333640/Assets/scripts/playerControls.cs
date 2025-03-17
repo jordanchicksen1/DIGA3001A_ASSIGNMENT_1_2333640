@@ -439,18 +439,8 @@ public class playerControls : MonoBehaviour
     {
        if(isInOriginalFlameRange == true && hasLitTorch == false)
         {
-            torchFlame.SetActive(true);
-            lightTorchWords.SetActive(false);    
-            // hasLitTorch = true; 
-            StartCoroutine(HasLitTorchBool());
-            StartCoroutine(TorchLitText());
-            increaseHope = true;
-            decreaseHope = false;
-            hopeUI.SetActive(true);
-           // Destroy(rockDoor);
-           animationControl.DoLinkFlameAnimation();
-            sfxs.clip = startFireSFX;
-            sfxs.Play();
+            animationControl.DoLinkFlameAnimation();
+            StartCoroutine(OriginalFlameStuff());
         }
 
        //teleport to the original flame
@@ -466,19 +456,9 @@ public class playerControls : MonoBehaviour
         
         if(isInCampfireRange1 == true && flameLinked1 == false && hasLitTorch == true)
         {
-            Debug.Log("should have lit fire");
-            fire1.SetActive(true);
-            campfireManager.addCampfire();
-            linkFlameText.SetActive(false);
-            // flameLinked1 = true;
-            StartCoroutine(FlameLinked1());
-            StartCoroutine(FlameLinkedText());
-            increaseHope = true;
-            decreaseHope = false;
-            easternCell.SetActive(true);
             animationControl.DoLinkFlameAnimation();
-            sfxs.clip = startFireSFX;
-            sfxs.Play();
+            StartCoroutine(Campfire1Stuff());
+            
         }
 
         //teleport to eastern cell
@@ -494,19 +474,9 @@ public class playerControls : MonoBehaviour
 
         if (isInCampfireRange2 == true && flameLinked2 == false && hasLitTorch == true)
         {
-            Debug.Log("should have lit fire");
-            fire2.SetActive(true);
-            campfireManager.addCampfire();
-            linkFlameText.SetActive(false);
-            //flameLinked2 = true;
-            StartCoroutine(FlameLinked2());
-            StartCoroutine(FlameLinkedText());
-            increaseHope = true;
-            decreaseHope = false;
-            theAbyss.SetActive(true);
             animationControl.DoLinkFlameAnimation();
-            sfxs.clip = startFireSFX;
-            sfxs.Play();
+            StartCoroutine(Campfire2Stuff());
+            
         }
 
         //teleport to the abyss
@@ -522,19 +492,9 @@ public class playerControls : MonoBehaviour
 
         if (isInCampfireRange3 == true && flameLinked3 == false && hasLitTorch == true)
         {
-            Debug.Log("should have lit fire");
-            fire3.SetActive(true);
-            campfireManager.addCampfire();
-            linkFlameText.SetActive(false);
-            //flameLinked3 = true;
-            StartCoroutine(FlameLinked3());
-            StartCoroutine(FlameLinkedText());
-            increaseHope = true;
-            decreaseHope = false;
-            northernCell.SetActive(true);
             animationControl.DoLinkFlameAnimation();
-            sfxs.clip = startFireSFX;
-            sfxs.Play();
+            StartCoroutine(Campfire3Stuff());
+            
         }
 
         //teleport to northen cell
@@ -568,19 +528,9 @@ public class playerControls : MonoBehaviour
 
         if (isInCampfireRange5 == true && flameLinked5 == false && hasLitTorch == true)
         {
-            Debug.Log("should have lit fire");
-            fire5.SetActive(true);
-            campfireManager.addCampfire();
-            linkFlameText.SetActive(false);
-            //flameLinked5 = true;
-            StartCoroutine(FlameLinked5());
-            StartCoroutine(FlameLinkedText());
-            increaseHope = true;
-            decreaseHope = false;
-            southernCell.SetActive(true);
             animationControl.DoLinkFlameAnimation();
-            sfxs.clip = startFireSFX;
-            sfxs.Play();
+            StartCoroutine (Campfire5Stuff());
+            
 
         }
 
@@ -1571,5 +1521,97 @@ public class playerControls : MonoBehaviour
     public void Start()
     {
         StartCoroutine(PressPause());
+    }
+
+    private IEnumerator OriginalFlameStuff()
+    {
+        yield return new WaitForSeconds(0.5f);
+        torchFlame.SetActive(true);
+        lightTorchWords.SetActive(false);
+        // hasLitTorch = true; 
+        StartCoroutine(HasLitTorchBool());
+        StartCoroutine(TorchLitText());
+        increaseHope = true;
+        decreaseHope = false;
+        hopeUI.SetActive(true);
+        // Destroy(rockDoor);
+
+        sfxs.clip = startFireSFX;
+        sfxs.Play();
+    }
+
+    private IEnumerator Campfire1Stuff()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Debug.Log("should have lit fire");
+        fire1.SetActive(true);
+        campfireManager.addCampfire();
+        linkFlameText.SetActive(false);
+        // flameLinked1 = true;
+        StartCoroutine(FlameLinked1());
+        StartCoroutine(FlameLinkedText());
+        increaseHope = true;
+        decreaseHope = false;
+        easternCell.SetActive(true);
+
+        sfxs.clip = startFireSFX;
+        sfxs.Play();
+
+    }
+
+    private IEnumerator Campfire2Stuff()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Debug.Log("should have lit fire");
+        fire2.SetActive(true);
+        campfireManager.addCampfire();
+        linkFlameText.SetActive(false);
+        //flameLinked2 = true;
+        StartCoroutine(FlameLinked2());
+        StartCoroutine(FlameLinkedText());
+        increaseHope = true;
+        decreaseHope = false;
+        theAbyss.SetActive(true);
+
+        sfxs.clip = startFireSFX;
+        sfxs.Play();
+
+    }
+
+    private IEnumerator Campfire3Stuff()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Debug.Log("should have lit fire");
+        fire3.SetActive(true);
+        campfireManager.addCampfire();
+        linkFlameText.SetActive(false);
+        //flameLinked3 = true;
+        StartCoroutine(FlameLinked3());
+        StartCoroutine(FlameLinkedText());
+        increaseHope = true;
+        decreaseHope = false;
+        northernCell.SetActive(true);
+
+        sfxs.clip = startFireSFX;
+        sfxs.Play();
+
+    }
+
+    private IEnumerator Campfire5Stuff()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Debug.Log("should have lit fire");
+        fire5.SetActive(true);
+        campfireManager.addCampfire();
+        linkFlameText.SetActive(false);
+        //flameLinked5 = true;
+        StartCoroutine(FlameLinked5());
+        StartCoroutine(FlameLinkedText());
+        increaseHope = true;
+        decreaseHope = false;
+        southernCell.SetActive(true);
+
+        sfxs.clip = startFireSFX;
+        sfxs.Play();
     }
 }
